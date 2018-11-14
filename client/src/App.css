@@ -4,7 +4,7 @@ img {
 
 .landing {
   position: relative;
-  background: url('./img/showcase.jpg') no-repeat;
+  background: url("./img/showcase.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -36,4 +36,148 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+
+/*  FOR THE PARALLAX JS */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+header {
+  position: relative;
+  height: 525px;
+  background: linear-gradient(to bottom, #589daa 0%, #e3e7db 30%);
+  background-attachment: fixed;
+}
+
+#logo {
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 50px;
+}
+
+#fg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.cloud {
+  width: 300px;
+  bottom: auto;
+}
+
+.small {
+  width: 100px;
+}
+
+#cloud1 {
+  left: 50%;
+  top: 200px;
+}
+
+#cloud2 {
+  left: 10%;
+  top: 100px;
+}
+
+#cloud3 {
+  left: 70%;
+  top: 50px;
+  width: 150px;
+}
+
+section {
+  position: relative;
+  height: 500px;
+  background: #111628;
+}
+#canvas {
+  display: block;
+  margin: auto;
+}
+#section3 {
+  height: 1400px;
+  overflow: hidden;
+}
+
+#scrollPath {
+  opacity: 0;
+}
+
+#square {
+  width: 100px;
+  height: 100px;
+}
+
+[data-inview=""] {
+  background: white;
+}
+
+[data-inview="3"] {
+  background: green;
+}
+
+[data-inview="2"] {
+  background: yellow;
+}
+
+[data-inview="1"] {
+  background: orange;
+}
+
+[data-inview="0"] {
+  background: red;
+}
+
+#triggerStatus {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: white;
+  padding: 1em;
+  font-family: sans-serif;
+  font-size: 2em;
+  z-index: 100;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+}
+#container {
+  text-align: center;
+}
+#square {
+  text-align: center;
+}
+
+/* Image Uploader */
+#imageUploader .imgPreview {
+  display: flex;
+}
+
+#imageUploader .previewSize {
+  height: 150px;
+  width: 150px;
+}
+#imageUploader .previewOutline {
+  margin: 10px;
+}
+.red {
+  color: red;
+}
+#imageUploader .image-upload > input {
+  display: none;
+}
+
+#imageUploader .image-upload img {
+  width: 80px;
+  cursor: pointer;
 }
