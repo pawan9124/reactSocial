@@ -10,10 +10,12 @@ class PostForm extends Component {
     super(props);
     this.state = {
       text: "",
+      images: [],
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.setPropsImage = this.setPropsImage.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,16 +31,23 @@ class PostForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    //creating the form data to post the image
     const { user } = this.props.auth;
+    const fd = new FormData();
+    //Server side don't accept array of formdata so the loop is calling
+    for (let i = 0; i < this.state.images.length; i++) {
+      fd.append("images", this.state.images[i]);
+    }
+    fd.append("text", this.state.text);
+    fd.append("name", user.name);
+    fd.append("avatar", user.avatar);
 
-    const newPost = {
-      text: this.state.text,
-      name: user.name,
-      avatar: user.avatar
-    };
-
-    this.props.addPost(newPost);
+    this.props.addPost(fd);
     this.setState({ text: "" });
+  }
+
+  setPropsImage(images) {
+    this.setState({ images: images });
   }
 
   render() {
@@ -57,7 +66,10 @@ class PostForm extends Component {
                   onChange={this.onChange}
                   error={errors.text}
                 />
-                <ImageUploader />
+                <ImageUploader
+                  setPropsImage={this.setPropsImage}
+                  type="multiple"
+                />
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit

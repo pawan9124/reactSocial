@@ -181,3 +181,7 @@ section {
   width: 80px;
   cursor: pointer;
 }
+.mapContainer {
+  height: 500px;
+  width: 500px;
+}

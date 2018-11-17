@@ -26,17 +26,29 @@ class ImageGallery extends Component {
 
   createImageArray() {
     let tempImage = [];
-    this.state.imageHolder.map((data, index) => {
-      const imageVar = {
-        src: data.src,
-        thumbnail: data.src,
-        thumbnailWidth: this.calculateThubmnailImage(data.src, "width"),
-        thumbnailHeight: this.calculateThubmnailImage(data.src, "height"),
-        tags: data.tags !== undefined ? data.tags : [],
-        caption: data.caption !== undefined ? data.caption : ""
-      };
-      tempImage.push(imageVar);
-    });
+    console.log("This.setate.map", this.state.imageHolder);
+    if (
+      this.state.imageHolder !== undefined &&
+      this.state.imageHolder.length > 0
+    ) {
+      this.state.imageHolder.map((data, index) => {
+        const imageVar = {
+          src: require("../../imageUploads/" + data.src),
+          thumbnail: require("../../imageUploads/" + data.src),
+          thumbnailWidth: this.calculateThubmnailImage(
+            require("../../imageUploads/" + data.src),
+            "width"
+          ),
+          thumbnailHeight: this.calculateThubmnailImage(
+            require("../../imageUploads/" + data.src),
+            "height"
+          ),
+          tags: data.tags !== undefined ? data.tags : [],
+          caption: data.caption !== undefined ? data.caption : ""
+        };
+        tempImage.push(imageVar);
+      });
+    }
 
     console.log("MPA", tempImage);
 

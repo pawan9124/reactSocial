@@ -1,18 +1,22 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ImageUploader extends Component {
   constructor(props) {
     super(props);
-    this.state = { images: [], limit: false };
+    this.state = { images: [], limit: false, propsImage: [] };
     this._handleImageChange = this._handleImageChange.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
   }
 
   _handleImageChange(e) {
     const dataFile = [];
+    const rawFiles = [];
     const files = e.target.files;
     const length = files.length;
     if (length < 6) {
+      this.props.setPropsImage(e.target.files);
+      rawFiles.push(files);
       return Promise.all(
         [].map.call(files, function(file) {
           return new Promise(function(resolve, reject) {
@@ -27,7 +31,10 @@ class ImageUploader extends Component {
         results.forEach(result => {
           dataFile.push({ file: result.file, imagePreviewUrl: result.result });
           if (length === dataFile.length) {
-            this.setState({ images: dataFile });
+            this.setState({
+              images: dataFile,
+              propsImage: rawFiles
+            });
           }
         });
       });
@@ -37,11 +44,14 @@ class ImageUploader extends Component {
   }
   onRemoveClick(index) {
     this.state.images.splice(index, 1);
+    this.state.propsImage.splice(index, 1);
+    this.props.setPropsImage(this.state.propsImage);
     this.setState({ images: this.state.images });
   }
 
   render() {
     const { images, limit } = this.state;
+    const { type } = this.props;
 
     let $imagePreview = null;
 
@@ -61,13 +71,11 @@ class ImageUploader extends Component {
               alt=""
               className="img-thumbnail previewSize"
               src={image.imagePreviewUrl}
-              accept=".png, .jpg, .jpeg"
             />
           </div>
         );
       });
     } else {
-      console.log("LIMIT", limit);
       if (limit === false) {
         $imagePreview = <div className="previewText">Select Images</div>;
       } else {
@@ -86,7 +94,8 @@ class ImageUploader extends Component {
             id="file-input"
             type="file"
             onChange={e => this._handleImageChange(e)}
-            multiple
+            accept=".png, .jpg, .jpeg"
+            multiple={type}
           />
         </div>
         <div className="imgPreview">{$imagePreview}</div>
@@ -94,5 +103,9 @@ class ImageUploader extends Component {
     );
   }
 }
+
+ImageUploader.propTypes = {
+  setPropsImage: PropTypes.func.isRequired
+};
 
 export default ImageUploader;
