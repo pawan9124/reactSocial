@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
-import { addLocation } from "../../actions/dashboardAction";
+import { addLocation } from "../../actions/dashboardActions";
 import ImageUploader from "../common/ImageUploader";
 
 class CreateLocation extends Component {
@@ -55,14 +55,15 @@ class CreateLocation extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div>
+      <div className="mt-5">
+        <label>Add a location:</label>
         <button
           type="button"
-          className="btn btn-primary"
+          className="ml-5 btn btn-primary"
           data-toggle="modal"
           data-target="#exampleModal"
         >
-          Launch demo modal
+          Add Location
         </button>
 
         <div

@@ -51,7 +51,6 @@ class PostItems extends Component {
           </div>
           <div className="col-md-10">
             <ImageGallery images={post.images} />
-            <ImageGallery />
             <p className="lead">{post.text}</p>
             {showActions ? (
               <span>

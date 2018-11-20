@@ -8,11 +8,12 @@ const mongoose = require("mongoose");
 const profile = require("./routes/api/profile");
 const userAuth = require("./routes/api/userAuth");
 const userPost = require("./routes/api/post");
+const dashboard = require("./routes/api/dashboard");
 const passport = require("passport");
 
 //middleware for using the body-parser
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
 
 //connect to the db
 mongoose
@@ -22,6 +23,7 @@ mongoose
 
 //Passport middleware
 app.use(passport.initialize());
+// app.use(cors);
 
 //Passport Config
 require("./config/passport")(passport);
@@ -30,6 +32,9 @@ require("./config/passport")(passport);
 app.use("/api/profile", profile);
 app.use("/api/userAuth", userAuth);
 app.use("/api/posts", userPost);
+app.use("/api/dashboard", dashboard);
+
+app.use(express.static("client/src/imageUploads"));
 
 //Server static assets if in production
 if (process.env.NODE_ENV === "production") {

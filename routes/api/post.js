@@ -4,7 +4,16 @@ const Post = require("../../models/Post");
 const Profile = require("../../models/Profile");
 const passport = require("passport");
 const validatePostInput = require("../../validator/post");
-const imagesUpload = require("images-upload-middleware");
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "client/src/imageUploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+const upload = multer({ storage });
 
 //@route GET api/userPost/test
 //@desc Tests userPost route
@@ -37,27 +46,35 @@ router.get("/:id", (req, res) => {
 //@access Private
 router.post(
   "/",
+  upload.array("images", 6),
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validatePostInput(req.body);
-
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
+    const imagesPath = [];
+    for (let i = 0; i < req.files.length; i++) {
+      imagesPath.push({ src: req.files[i].filename });
+    }
     const newPost = new Post({
       text: req.body.text,
-      images: imagesUpload(
-        "./ImageUploads",
-        "http://localhost:7000/ImageUploads",
-        true
-      ),
+      images: imagesPath,
       name: req.body.name,
       avatar: req.body.avatar,
-      user: req.user.id
+      user: req.user.id,
+      location: {
+        country: req.body.country,
+        state: req.body.state,
+        city: req.body.city,
+        zipcode: req.body.zipcode
+      }
     });
 
-    newPost.save().then(post => res.json(post));
+    newPost
+      .save()
+      .then(post => res.json(post))
+      .catch(err => res.status(404).json(err));
   }
 );
 

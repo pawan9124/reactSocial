@@ -185,3 +185,10 @@ section {
   height: 500px;
   width: 500px;
 }
+.display-flex {
+  display: flex;
+}
+#mapContainer {
+  height: 400px;
+  width: 1050px;
+}

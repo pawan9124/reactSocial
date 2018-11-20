@@ -33,6 +33,7 @@ class PostForm extends Component {
 
     //creating the form data to post the image
     const { user } = this.props.auth;
+    const { location } = this.props.dashboard;
     const fd = new FormData();
     //Server side don't accept array of formdata so the loop is calling
     for (let i = 0; i < this.state.images.length; i++) {
@@ -41,6 +42,10 @@ class PostForm extends Component {
     fd.append("text", this.state.text);
     fd.append("name", user.name);
     fd.append("avatar", user.avatar);
+    fd.append("country", location.country);
+    fd.append("state", location.state);
+    fd.append("city", location.city);
+    fd.append("zipcode", location.zipcode);
 
     this.props.addPost(fd);
     this.setState({ text: "" });
@@ -90,7 +95,8 @@ PostForm.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  dashboard: state.dashboard
 });
 
 export default connect(

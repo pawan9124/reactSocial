@@ -1,7 +1,8 @@
 import {
   ADD_LOCATION,
-  GET_LOCATIONS,
-  LOADING_LOCATIONS
+  GET_LOCATION,
+  LOADING_LOCATIONS,
+  GET_SINGLE_LOCATION
 } from "../actions/types";
 
 const initialState = {
@@ -20,13 +21,18 @@ export default function(state = initialState, action) {
     case ADD_LOCATION:
       return {
         ...state,
-        posts: [action.payload, ...state.locations]
+        locations: [action.payload, ...state.locations]
       };
-    case GET_LOCATIONS:
+    case GET_LOCATION:
       return {
         ...state,
-        posts: action.payload,
+        locations: action.payload,
         loading: false
+      };
+    case GET_SINGLE_LOCATION:
+      return {
+        ...state,
+        location: action.payload
       };
     default:
       return state;
