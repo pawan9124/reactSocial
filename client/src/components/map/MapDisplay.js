@@ -1,35 +1,52 @@
 import React, { Component } from "react";
 import L from "leaflet";
-import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
+import MapSearch from "./MapSearch";
 
-class SearchMap extends Component {
+class MapDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      suggestionList: []
+      searchLocation: {}
     };
-    this.handleOnChange = this.handleOnChange.bind(this);
+    this.setMapCoordinate = this.setMapCoordinate.bind(this);
+    this.locateMap = this.locateMap.bind(this);
   }
 
   componentDidMount() {
     this.locateMap();
   }
-  handleOnChange(e) {
-    const provider = new OpenStreetMapProvider();
-    provider.search({ query: e.target.value }).then(results => {
-      this.setState({ suggestionList: results });
-    });
-  }
 
   locateMap() {
     //  Define search controls
+    const mapData = this.state.searchLocation;
+    console.log("MAPADATA", mapData);
+    let obj;
+    if (mapData === null || Object.keys(mapData).length === 0) {
+      obj = {
+        label: "World",
+        x: 0.0,
+        y: 0.0,
+        setView: 2
+      };
+    } else {
+      obj = {
+        label: mapData.label,
+        x: mapData.x,
+        y: mapData.y,
+        setView: 12
+      };
+    }
+    console.log("OBE", obj);
     const markerIcons = L.icon({
       iconUrl: require("../../img/marker-icon.png"),
       shadowUrl: require("../../img/marker-shadow.png"),
       iconSize: [25, 41] // size of the icon
     });
 
-    const map = L.map("mapContainer", {
+    document.getElementById("mapContainer").innerHTML = "";
+    document.getElementById("mapContainer").innerHTML =
+      "<div id='map' style='width: 100%; height: 100%;'></div>";
+    const map = L.map("map", {
       maxZoom: 18,
       zoom: 17,
       zoomControl: false
@@ -39,49 +56,28 @@ class SearchMap extends Component {
     }).addTo(map);
 
     var featureGroup = new L.featureGroup();
-    L.marker(new L.LatLng(52.0852378, 5.3846249), { icon: markerIcons })
-      .bindPopup("BING")
+    L.marker(new L.LatLng(obj.y, obj.x), { icon: markerIcons })
+      .bindPopup(obj.label)
       .on("mouseover", function(e) {
         this.openPopup();
       })
       .addTo(featureGroup);
     map.addLayer(featureGroup);
-    map.setView([56.246108, -100.5256652], 4);
+    map.setView([obj.y, obj.x], obj.setView);
   }
-  handleLocation(data) {
-    console.log("handleLocationData==>", data);
+
+  setMapCoordinate(location) {
+    console.log("SETMAP", location);
+    this.setState({ searchLocation: location[0] });
+    setTimeout(() => {
+      this.locateMap();
+    }, 500);
   }
 
   render() {
-    const { suggestionList } = this.state;
-    let locationSuggestion;
-    if (suggestionList.length > 0) {
-      locationSuggestion = suggestionList.map((data, index) => {
-        return (
-          <option
-            key={"options" + index}
-            onClick={this.handleLocation.bind(this, data)}
-            value={data.label}
-          />
-        );
-      });
-    }
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <input
-              className="glass"
-              type="text"
-              placeholder="Enter address"
-              style={{ outline: "none" }}
-              onChange={this.handleOnChange}
-              list="locations"
-              name="locations"
-            />
-            <datalist id="locations">{locationSuggestion}</datalist>
-          </div>
-        </div>
+        <MapSearch setMapCoordinate={this.setMapCoordinate} />
         <div className="row" style={{ marginTop: "20" }}>
           <div className="col-md-12">
             <div id="mapContainer" />
@@ -92,4 +88,4 @@ class SearchMap extends Component {
   }
 }
 
-export default SearchMap;
+export default MapDisplay;

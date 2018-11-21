@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
-import { getLocation } from "../../actions/dashboardActions";
+import { getTopLocations } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
 import ProfileActions from "./ProfileActions";
 import Experience from "./Experience";
@@ -15,11 +15,7 @@ import MapDisplay from "../map/MapDisplay";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
-    this.props.getLocation("India", {
-      country: "India",
-      state: "Florida",
-      city: "roskilde"
-    });
+    this.props.getTopLocations();
   }
 
   onDeleteClick(e) {
@@ -119,5 +115,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, deleteAccount, getLocation }
+  { getCurrentProfile, deleteAccount, getTopLocations }
 )(Dashboard);

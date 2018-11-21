@@ -2,7 +2,8 @@ import {
   ADD_LOCATION,
   GET_LOCATION,
   LOADING_LOCATIONS,
-  GET_SINGLE_LOCATION
+  GET_SINGLE_LOCATION,
+  GET_TOP_LOCATIONS
 } from "../actions/types";
 
 const initialState = {
@@ -33,6 +34,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         location: action.payload
+      };
+    case GET_TOP_LOCATIONS:
+      return {
+        ...state,
+        locations: action.payload,
+        loading: false
       };
     default:
       return state;
