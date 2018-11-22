@@ -19,7 +19,6 @@ class MapSearch extends Component {
     const provider = new OpenStreetMapProvider();
     const searchQuery = e.target.value;
     provider.search({ query: e.target.value }).then(results => {
-      console.log("results", results);
       this.setState({ suggestionList: results, searchQuery: searchQuery });
     });
   }
@@ -45,7 +44,7 @@ class MapSearch extends Component {
           <div className="col-md-12">
             <form onSubmit={this.handleSubmit}>
               <input
-                className="glass"
+                className="form-control"
                 type="text"
                 placeholder="Enter address"
                 style={{ outline: "none" }}
@@ -53,9 +52,12 @@ class MapSearch extends Component {
                 list="locations"
                 name="locations"
               />
-              <button className="btn btn-primary" type="submit">
-                <i className="fa fa-search" aria-hidden="true" />
-              </button>
+              {this.props.showButton ? (
+                <button className="btn btn-primary" type="submit">
+                  <i className="fa fa-search" aria-hidden="true" />
+                </button>
+              ) : null}
+
               <datalist id="locations">{locationSuggestion}</datalist>
             </form>
           </div>

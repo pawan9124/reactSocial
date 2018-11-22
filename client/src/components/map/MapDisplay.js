@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import L from "leaflet";
-import MapSearch from "./MapSearch";
+import LocationSearchBox from "../common/LocationSearchBox";
 
 class MapDisplay extends Component {
   constructor(props) {
@@ -77,7 +77,10 @@ class MapDisplay extends Component {
   render() {
     return (
       <div className="container">
-        <MapSearch setMapCoordinate={this.setMapCoordinate} />
+        <LocationSearchBox
+          showButton={true}
+          setMapCoordinate={this.setMapCoordinate}
+        />
         <div className="row" style={{ marginTop: "20" }}>
           <div className="col-md-12">
             <div id="mapContainer" />
