@@ -67,7 +67,6 @@ class MapDisplay extends Component {
   }
 
   setMapCoordinate(location) {
-    console.log("SETMAP", location);
     this.setState({ searchLocation: location[0] });
     setTimeout(() => {
       this.locateMap();

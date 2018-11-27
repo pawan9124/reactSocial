@@ -4,9 +4,54 @@ import PropTypes from "prop-types";
 import SearchPanel from "./SearchPanel";
 import TableDisplay from "../common/TableDisplay";
 import CreateTripPlan from "./CreateTripPlan";
+import { getTrips } from "../../actions/tripActions";
+import Spinner from "../common/Spinner";
+
+let counter = 0;
 
 class Trip extends Component {
+  componentDidMount() {
+    this.props.getTrips();
+  }
+
+  createData(user, start, destination, from, to, startTime, endTime, join) {
+    counter += 1;
+    return {
+      id: counter,
+      user,
+      start,
+      destination,
+      from,
+      to,
+      startTime,
+      endTime,
+      join
+    };
+  }
+
   render() {
+    const { trips, loading } = this.props.trip;
+    let tableData = [];
+    let displayHolder;
+    if (loading) {
+      displayHolder = <Spinner />;
+    } else {
+      trips.map(data => {
+        return tableData.push(
+          this.createData(
+            data.user,
+            data.start,
+            data.destination,
+            data.from,
+            data.to,
+            data.startTime,
+            data.endTime,
+            data.join
+          )
+        );
+      });
+      displayHolder = <TableDisplay trips={tableData} />;
+    }
     return (
       <div className="container">
         <div className="row">
@@ -23,10 +68,21 @@ class Trip extends Component {
         <hr />
         <div className="row">
           <h4>Travellers List</h4>
-          <TableDisplay />
+          {displayHolder}
         </div>
       </div>
     );
   }
 }
-export default Trip;
+
+Trip.propTypes = {
+  getTrips: PropTypes.func.isRequired
+};
+
+const mapPropsToState = state => ({
+  trip: state.trip
+});
+export default connect(
+  mapPropsToState,
+  { getTrips }
+)(Trip);

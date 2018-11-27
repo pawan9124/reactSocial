@@ -19,6 +19,9 @@ class MapSearch extends Component {
     const provider = new OpenStreetMapProvider();
     const searchQuery = e.target.value;
     provider.search({ query: e.target.value }).then(results => {
+      if (this.props.setLocation !== undefined) {
+        this.props.setLocation(this.props.name, searchQuery);
+      }
       this.setState({ suggestionList: results, searchQuery: searchQuery });
     });
   }
@@ -32,6 +35,7 @@ class MapSearch extends Component {
 
   render() {
     const { suggestionList } = this.state;
+    const { name, placeholder } = this.props;
     let locationSuggestion;
     if (suggestionList.length > 0) {
       locationSuggestion = suggestionList.map((data, index) => {
@@ -46,11 +50,11 @@ class MapSearch extends Component {
               <input
                 className="form-control"
                 type="text"
-                placeholder="Enter address"
+                placeholder={placeholder}
                 style={{ outline: "none" }}
                 onChange={this.handleOnChange}
-                list="locations"
-                name="locations"
+                list={name}
+                name={name}
               />
               {this.props.showButton ? (
                 <button className="btn btn-primary" type="submit">
@@ -58,7 +62,7 @@ class MapSearch extends Component {
                 </button>
               ) : null}
 
-              <datalist id="locations">{locationSuggestion}</datalist>
+              <datalist id={name}>{locationSuggestion}</datalist>
             </form>
           </div>
         </div>

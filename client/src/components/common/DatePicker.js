@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import moment from "moment";
-
 const styles = theme => ({
   container: {
     display: "flex",
@@ -15,39 +14,36 @@ const styles = theme => ({
     width: 200
   }
 });
-
-class DateAndTimePickers extends Component {
+class DatePicker extends Component {
   onChange(e) {
     this.props.setDate(e);
   }
 
   render() {
     const { classes, label, dateName } = this.props;
-    var tzoffset = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
-    var localISOTime = new Date(Date.now() - tzoffset)
-      .toISOString()
-      .slice(0, -1);
-    console.log("CURRENT", localISOTime, dateName);
+    const dateValue = moment(Date.now()).format("YYYY-MM-DD");
 
     return (
       <form className={classes.container} noValidate>
         <TextField
-          id="datetime-local"
+          id="date"
           label={label}
-          type="datetime-local"
-          defaultValue={localISOTime}
+          type="date"
+          defaultValue={dateValue}
           name={dateName}
-          onChange={this.onChange.bind(this)}
           className={classes.textField}
-          InputLabelProps={{ shrink: true }}
+          onChange={this.onChange.bind(this)}
+          InputLabelProps={{
+            shrink: true
+          }}
         />
       </form>
     );
   }
 }
 
-DateAndTimePickers.propTypes = {
+DatePicker.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(DateAndTimePickers);
+export default withStyles(styles)(DatePicker);

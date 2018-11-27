@@ -9,6 +9,7 @@ const profile = require("./routes/api/profile");
 const userAuth = require("./routes/api/userAuth");
 const userPost = require("./routes/api/post");
 const dashboard = require("./routes/api/dashboard");
+const trip = require("./routes/api/trip");
 const passport = require("passport");
 
 //middleware for using the body-parser
@@ -33,6 +34,7 @@ app.use("/api/profile", profile);
 app.use("/api/userAuth", userAuth);
 app.use("/api/posts", userPost);
 app.use("/api/dashboard", dashboard);
+app.use("/api/trip", trip);
 
 app.use(express.static("client/src/imageUploads"));
 

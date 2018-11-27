@@ -1,20 +1,28 @@
 import React, { Component } from "react";
 import LocationSearchBox from "../common/LocationSearchBox";
-import DateAndTimePickers from "../common/DateAndTimePickers";
+import { connect } from "react-redux";
+import DatePicker from "../common/DatePicker";
+import TimeInput from "material-ui-time-picker";
+import moment from "moment";
+import PropTypes from "prop-types";
+import { getSearchedTrips } from "../../actions/tripActions";
 
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       from: "",
-      to: ""
+      to: "",
+      start: "",
+      destination: ""
     };
     this.setMapCoordinate = this.setMapCoordinate.bind(this);
     this.setDate = this.setDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.setLocation = this.setLocation.bind(this);
+    this.searchTrips = this.searchTrips.bind(this);
   }
   setMapCoordinate(location) {
-    console.log("SETMAP", location);
     this.setState({ searchLocation: location[0] });
     setTimeout(() => {
       this.locateMap();
@@ -25,8 +33,21 @@ class SearchPanel extends Component {
     e.preventDeafult();
   }
 
+  searchTrips() {
+    console.log("Tisss", this.state);
+    this.props.getSearchedTrips(this.state);
+  }
+  handleChange(time, name) {
+    const convertime = moment(time).format("hh:mm a");
+    this.setState({ [name]: convertime });
+  }
+
+  setLocation(title, value) {
+    this.setState({ [title]: value });
+  }
+
   setDate(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: new Date(e.target.value) });
   }
 
   render() {
@@ -37,19 +58,32 @@ class SearchPanel extends Component {
             <label>Select trip date:</label>
           </div>
           <div className=" col-md-4  ">
-            <DateAndTimePickers
+            <DatePicker
               dateName={"from"}
               setDate={this.setDate}
               label={"From:"}
             />
+            {/* <span className="mt-5 pl-2">
+              <TimeInput
+                mode="12h"
+                value={this.state.time}
+                name="startTime"
+                onChange={(time, e) => this.handleChange(time, "startTime")}
+              />
+            </span> */}
           </div>
           <div className=" col-md-4">
-            <DateAndTimePickers
-              dateName={"to"}
-              setDate={this.setDate}
-              label={"To:"}
-            />
+            <DatePicker dateName={"to"} setDate={this.setDate} label={"To:"} />
+            {/* <span className="mt-3 pl-2">
+              <TimeInput
+                mode="12h"
+                value={this.state.time}
+                name="endTime"
+                onChange={time => this.handleChange(time, "endTime")}
+              />
+            </span> */}
           </div>
+          <div className="col-md-1 mt-3" />
         </div>
         <hr />
         <div className="row mt-5">
@@ -60,14 +94,18 @@ class SearchPanel extends Component {
             <label>Start:</label>
             <LocationSearchBox
               showButton={false}
-              setMapCoordinate={this.setMapCoordinate}
+              name={"start"}
+              setLocation={this.setLocation}
+              placeholder={"Enter Start Location"}
             />
           </div>
           <div className="col-md-4  ">
             <label>Destination:</label>
             <LocationSearchBox
               showButton={false}
-              setMapCoordinate={this.setMapCoordinate}
+              name={"destination"}
+              setLocation={this.setLocation}
+              placeholder={"Enter Destination Location"}
             />
           </div>
         </div>
@@ -75,7 +113,11 @@ class SearchPanel extends Component {
           <div className="row mt-5">
             <div className="col-md-12">
               <center>
-                <button type="submit" className="btn btn-primary">
+                <button
+                  type="button"
+                  onClick={this.searchTrips}
+                  className="btn btn-primary"
+                >
                   Search
                 </button>
               </center>
@@ -87,4 +129,11 @@ class SearchPanel extends Component {
   }
 }
 
-export default SearchPanel;
+SearchPanel.propTypes = {
+  getSearchedTrips: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { getSearchedTrips }
+)(SearchPanel);

@@ -84,7 +84,7 @@ class Dashboard extends Component {
                   <MapDisplay />
                   <div>
                     <hr />
-                    <CreateLocation />
+                    <CreateLocation placeholder={"Enter Location"} />
                   </div>
                   <hr />
                   <div className="row">

@@ -16,3 +16,7 @@ export const GET_LOCATION = "GET_LOCATION";
 export const LOADING_LOCATIONS = "LOADING_LOCATIONS";
 export const GET_SINGLE_LOCATION = "GET_SINGLE_LOCATION";
 export const GET_TOP_LOCATIONS = "GET_TOP_LOCATIONS";
+export const ADD_TRIP = "ADD_TRIP";
+export const LOADING_TRIP = "LOADING_TRIP";
+export const GET_TRIPS = "GET_TRIPS";
+export const GET_TRIP = "GET_TRIP";

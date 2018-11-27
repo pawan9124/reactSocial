@@ -22,7 +22,9 @@ router.get("/", (req, res) => {
   Locations.find()
     .sort({ country: -1 })
     .limit(20)
-    .then(locations => res.json(locations))
+    .then(locations => {
+      res.json(locations);
+    })
     .catch(err =>
       res.status(404).json({ noLocationsFound: "None Locations found" })
     );
@@ -42,26 +44,33 @@ router.get("/:id", (req, res) => {
 //@route Post api/dashboard/:country
 //@desc Post post by country
 //@access Private
-router.post("/:country", (req, res) => {
-  const findData = {
-    country: req.params.country,
-    state: req.body.state !== undefined ? req.body.state : "",
-    city: req.body.city !== undefined ? req.body.city : ""
-  };
-  console.log(findData);
-  Locations.find({
-    $or: [
-      { country: findData.country.trim().toLowerCase() },
-      { state: findData.state.trim().toLowerCase() },
-      { city: findData.city.trim().toLowerCase() }
-    ]
-  })
-    .then(locations => {
-      res.json(locations);
-    })
-    .catch(err =>
-      res.status(404).json({ noLocationsFound: "No Location Found" })
-    );
+router.post("/", (req, res) => {
+  if (req.body.query !== undefined) {
+    const reqQuery = req.body.query.split(",");
+    for (let i = 0; i < reqQuery.length; i++) {
+      reqQuery[i] = reqQuery[i].trim().toLowerCase();
+    }
+
+    Locations.find({})
+      .then(locations => {
+        const sendLocations = [];
+        locations.forEach(element => {
+          if (
+            reqQuery.indexOf(element.country) > -1 ||
+            reqQuery.indexOf(element.state) > -1 ||
+            reqQuery.indexOf(element.city) > -1
+          ) {
+            sendLocations.push(element);
+          }
+        });
+        res.json(sendLocations);
+      })
+      .catch(err =>
+        res.status(404).json({ noLocationsFound: "No Location Found" })
+      );
+  } else {
+    res.status(404).json({ locationNotFound: "Location Not Found" });
+  }
 });
 
 //@route Post api/posts

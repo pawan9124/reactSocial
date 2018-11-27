@@ -18,6 +18,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import Avatar from "@material-ui/core/Avatar";
+import moment from "moment";
 
 let counter = 0;
 function createData(name, calories, fat, carbs, protein) {
@@ -53,15 +55,39 @@ function getSorting(order, orderBy) {
 
 const rows = [
   {
-    id: "name",
+    id: "user",
     numeric: false,
     disablePadding: true,
-    label: "Dessert (100g serving)"
+    label: "Traveller"
   },
-  { id: "calories", numeric: true, disablePadding: false, label: "Calories" },
-  { id: "fat", numeric: true, disablePadding: false, label: "Fat (g)" },
-  { id: "carbs", numeric: true, disablePadding: false, label: "Carbs (g)" },
-  { id: "protein", numeric: true, disablePadding: false, label: "Protein (g)" }
+  { id: "start", numeric: true, disablePadding: false, label: "Start" },
+  {
+    id: "destination",
+    numeric: true,
+    disablePadding: false,
+    label: "Destination"
+  },
+  { id: "from", numeric: true, disablePadding: false, label: "From" },
+
+  { id: "to", numeric: true, disablePadding: false, label: "To" },
+  {
+    id: "startTime",
+    numeric: true,
+    disablePadding: false,
+    label: "Boarding Time"
+  },
+  {
+    id: "endTime",
+    numeric: true,
+    disablePadding: false,
+    label: "Arrival Time"
+  },
+  {
+    id: "join",
+    numeric: true,
+    disablePadding: false,
+    label: "Join"
+  }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -168,7 +194,7 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <Typography variant="h6" id="tableTitle">
-            Nutrition
+            Travellers
           </Typography>
         )}
       </div>
@@ -209,13 +235,20 @@ const styles = theme => ({
   },
   tableWrapper: {
     overflowX: "auto"
+  },
+  avatar: {
+    margin: 10
+  },
+  bigAvatar: {
+    width: 60,
+    height: 60
   }
 });
 
 class TableDisplay extends React.Component {
   state = {
     order: "asc",
-    orderBy: "calories",
+    orderBy: "from",
     selected: [],
     data: [
       createData("Cupcake", 305, 3.7, 67, 4.3),
@@ -232,6 +265,7 @@ class TableDisplay extends React.Component {
       createData("Nougat", 360, 19.0, 9, 37.0),
       createData("Oreo", 437, 18.0, 63, 4.0)
     ],
+    trips: [],
     page: 0,
     rowsPerPage: 5
   };
@@ -287,8 +321,9 @@ class TableDisplay extends React.Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { classes, trips } = this.props;
+    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const data = trips;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
@@ -324,12 +359,27 @@ class TableDisplay extends React.Component {
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.name}
+                        <Avatar
+                          alt={n.user.name}
+                          src={n.user.avatar}
+                          className={classNames(
+                            classes.avatar,
+                            classes.bigAvatar
+                          )}
+                        />
+                        <center>{n.user.name}</center>
                       </TableCell>
-                      <TableCell numeric>{n.calories}</TableCell>
-                      <TableCell numeric>{n.fat}</TableCell>
-                      <TableCell numeric>{n.carbs}</TableCell>
-                      <TableCell numeric>{n.protein}</TableCell>
+                      <TableCell numeric>{n.start}</TableCell>
+                      <TableCell numeric>{n.destination}</TableCell>
+                      <TableCell numeric>
+                        {moment(n.from).format("YYYY-MM-DD")}
+                      </TableCell>
+                      <TableCell numeric>
+                        {moment(n.to).format("YYYY-MM-DD")}
+                      </TableCell>
+                      <TableCell>{n.startTime}</TableCell>
+                      <TableCell>{n.endTime}</TableCell>
+                      <TableCell>{n.join ? "joined" : "join"}</TableCell>
                     </TableRow>
                   );
                 })}

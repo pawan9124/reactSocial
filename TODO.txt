@@ -4,4 +4,4 @@
 4. Stick photo
 5. Love lock
 6. Popularity
-7. Search by location Map
+7. Search by location Map- done
