@@ -12,19 +12,9 @@ import {
 //Add POST
 export const addLocation = postData => dispatch => {
   dispatch(clearErrors());
-  Axios.post("/api/dashboard", postData)
-    .then(res =>
-      dispatch({
-        type: ADD_LOCATION,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  Axios.post("/api/dashboard/createLocation", postData)
+    .then(res => dispatch({ type: ADD_LOCATION, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 //GET POSTS

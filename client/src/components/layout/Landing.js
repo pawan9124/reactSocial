@@ -62,14 +62,14 @@ class Landing extends Component {
             data-offset="0.5"
             src={require("../../img/layer-2.svg")}
           />{" "}
-          <img
+          {/* <img
             id="logo"
             className="layer parallax"
             alt="logo"
             data-offset="2"
             width="200"
             src={require("../../img/logo.svg")}
-          />
+          /> */}
           <div id="container" />
           <img
             id="fg"
@@ -95,7 +95,7 @@ class Landing extends Component {
           />
           <img
             className="layer layer2"
-            src={require("../../img/3-mask.svg")}
+            src={require("../../img/drawing.svg")}
             alt=""
           />
           <Path />

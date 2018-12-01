@@ -77,7 +77,7 @@ router.post("/", (req, res) => {
 //@desc GET post
 //@access Private
 router.post(
-  "/",
+  "/createLocation",
   upload.single("image"),
   passport.authenticate("jwt", { session: false }),
   (req, res) => {

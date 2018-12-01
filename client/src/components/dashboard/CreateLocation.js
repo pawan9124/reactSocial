@@ -4,17 +4,19 @@ import PropTypes from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { addLocation } from "../../actions/dashboardActions";
 import ImageUploader from "../common/ImageUploader";
+import SelectListGroup from "../common/SelectListGroup";
+import CountryList from "../../utils/countryList.json";
 
 class CreateLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
       country: "India",
-      state: "Jharkhand",
-      city: "Hazaribagh",
-      zipcode: "825301",
+      state: "",
+      city: "",
+      zipcode: "",
       image: "",
-      description: "This is fun to have here",
+      description: "",
       errors: {}
     };
 
@@ -42,12 +44,11 @@ class CreateLocation extends Component {
       fd.append("image", this.state.image[i]);
     }
     fd.append("description", this.state.description);
-    console.log("THISSTAT", this.state);
-    console.log("FD,", fd);
     e.preventDefault();
 
     this.props.addLocation(fd);
   }
+
   setPropsImage(image) {
     this.setState({ image: image });
   }
@@ -85,13 +86,14 @@ class CreateLocation extends Component {
                         Add Location that are not available
                       </p>
                       <form onSubmit={this.onSubmit}>
-                        <TextFieldGroup
-                          type="text"
-                          placeholder="Country"
+                        <SelectListGroup
+                          placeholder="Status"
                           name="country"
                           value={this.state.country}
                           onChange={this.onChange}
+                          options={CountryList}
                           error={errors.country}
+                          info="Select country from list"
                         />
                         <TextFieldGroup
                           type="text"
