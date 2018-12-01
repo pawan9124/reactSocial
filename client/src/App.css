@@ -307,3 +307,6 @@ section {
 .mySlides {
   display: none;
 }
+.no-padding {
+  padding: 0px;
+}

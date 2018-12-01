@@ -13,20 +13,13 @@ class SearchPanel extends Component {
     this.state = {
       from: "",
       to: "",
-      start: "",
-      destination: ""
+      searchStart: "",
+      searcDestination: ""
     };
-    this.setMapCoordinate = this.setMapCoordinate.bind(this);
     this.setDate = this.setDate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.searchTrips = this.searchTrips.bind(this);
-  }
-  setMapCoordinate(location) {
-    this.setState({ searchLocation: location[0] });
-    setTimeout(() => {
-      this.locateMap();
-    }, 500);
   }
 
   handleSubmit(e) {
@@ -94,7 +87,7 @@ class SearchPanel extends Component {
             <label>Start:</label>
             <LocationSearchBox
               showButton={false}
-              name={"start"}
+              name={"searchStart"}
               setLocation={this.setLocation}
               placeholder={"Enter Start Location"}
             />
@@ -103,7 +96,7 @@ class SearchPanel extends Component {
             <label>Destination:</label>
             <LocationSearchBox
               showButton={false}
-              name={"destination"}
+              name={"searchDestination"}
               setLocation={this.setLocation}
               placeholder={"Enter Destination Location"}
             />

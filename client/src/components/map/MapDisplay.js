@@ -78,6 +78,7 @@ class MapDisplay extends Component {
       <div className="container">
         <LocationSearchBox
           showButton={true}
+          name={"locationSearch"}
           setMapCoordinate={this.setMapCoordinate}
         />
         <div className="row" style={{ marginTop: "20" }}>

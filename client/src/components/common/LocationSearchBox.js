@@ -44,9 +44,9 @@ class MapSearch extends Component {
     }
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
+          <div className="row">
+            <div className="col-md-10 no-padding mb-3">
               <input
                 className="form-control"
                 type="text"
@@ -56,16 +56,21 @@ class MapSearch extends Component {
                 list={name}
                 name={name}
               />
+              <datalist id={name}>{locationSuggestion}</datalist>
+            </div>
+            <div className="col-md-2 no-padding mb-3">
               {this.props.showButton ? (
-                <button className="btn btn-primary" type="submit">
+                <button
+                  style={{ width: "100%" }}
+                  className="btn btn-primary"
+                  type="submit"
+                >
                   <i className="fa fa-search" aria-hidden="true" />
                 </button>
               ) : null}
-
-              <datalist id={name}>{locationSuggestion}</datalist>
-            </form>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     );
   }

@@ -93,8 +93,11 @@ router.post(
         const returnData = [];
         trips.forEach(data => {
           if (
-            compareStringPercentage(data.start, req.body.start) &&
-            compareStringPercentage(data.destination, req.body.destination)
+            compareStringPercentage(data.start, req.body.searchStart) &&
+            compareStringPercentage(
+              data.destination,
+              req.body.searchDestination
+            )
           ) {
             returnData.push(data);
           }
