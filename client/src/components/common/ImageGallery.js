@@ -82,7 +82,7 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { images, imageHolder } = this.state;
+    const { images } = this.state;
     const popUpHTML = (
       <div id="myModal" className="modal" tabIndex="-1" role="dialog">
         <span onClick={this.closeModal} className="close">

@@ -191,17 +191,17 @@ section {
 
 /* MODAL IMAGE CONTENT */
 
-.postImage {
+#myModal .postImage {
   cursor: pointer;
   transition: 0.3s;
 }
 
-.postImage:hover {
+#myModal .postImage:hover {
   opacity: 0.7;
 }
 
 /* The Modal (background) */
-.modal {
+#myModal.modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -238,7 +238,7 @@ section {
 */
 
 /* Add Animation */
-.modal-content,
+#myModal.modal-content,
 #caption {
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
