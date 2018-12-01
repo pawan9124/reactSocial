@@ -93,11 +93,6 @@ class Landing extends Component {
             src={require("../../img/2-light.png")}
             alt=""
           />
-          <img
-            className="layer layer2"
-            src={require("../../img/drawing.svg")}
-            alt=""
-          />
           <Path />
         </section>
         <div id="triggerStatus" />

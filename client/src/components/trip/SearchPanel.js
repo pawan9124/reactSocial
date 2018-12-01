@@ -67,6 +67,11 @@ class SearchPanel extends Component {
           </div>
           <div className=" col-md-4">
             <DatePicker dateName={"to"} setDate={this.setDate} label={"To:"} />
+            <input
+              type="text"
+              className="form-control datepicker"
+              value="10/05/2016"
+            />
             {/* <span className="mt-3 pl-2">
               <TimeInput
                 mode="12h"

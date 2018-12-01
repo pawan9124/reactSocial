@@ -39,17 +39,6 @@ class Dashboard extends Component {
                 Welcome{" "}
                 <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
               </p>
-              {/* <ProfileActions /> */}
-              {/* <Experience experience={profile.experience} /> */}
-              {/* <Education education={profile.education} /> */}
-              {/* <div style={{ marginBottom: "60px" }}>
-              <button
-                onClick={this.onDeleteClick.bind(this)}
-                className="btn btn-danger"
-              >
-                Delete My Account
-              </button>
-            </div> */}
             </div>
           );
         }
@@ -72,21 +61,69 @@ class Dashboard extends Component {
         {spinner ? (
           <Spinner />
         ) : (
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <h1 className="display-4">Dashboard</h1>
-                {dashboardContent}
-                <div height="500" width="500">
-                  <MapDisplay />
-                  <div>
-                    <hr />
-                    <CreateLocation placeholder={"Enter Location"} />
+          <div>
+            <div className=" page-header">
+              <img
+                alt="image1"
+                src={require("../../img/blob.png")}
+                className="path"
+              />
+              <img
+                alt="image2"
+                src={require("../../img/path2.png")}
+                className="path2"
+              />
+              <img
+                alt="image3"
+                src={require("../../img/triunghiuri.png")}
+                className="shapes triangle"
+                style={{ top: "76%" }}
+              />
+              <img
+                alt="image4"
+                src={require("../../img/waves.png")}
+                className="shapes wave"
+                style={{ top: "0%", left: "0%" }}
+              />
+              <img
+                alt="image6"
+                src={require("../../img/cercuri.png")}
+                className="shapes circle"
+                style={{ top: "0%", left: "25%" }}
+              />
+              <div className="container wrapper">
+                <div className="row">
+                  <div className="col-md-12">
+                    <h1 className="display-4">Dashboard</h1>
+                    {dashboardContent}
+                    <div height="500" width="500">
+                      <MapDisplay />
+                      <div>
+                        <hr />
+                        <CreateLocation placeholder={"Enter Location"} />
+                      </div>
+                    </div>
                   </div>
-                  <hr />
-                  <div className="row">
-                    <CardDisplay locations={locations} />
-                  </div>
+                </div>
+                <hr />
+              </div>
+            </div>
+            <div className="section section-lg" style={{ paddingTop: "35px" }}>
+              <img
+                alt="image1"
+                src={require("../../img/path4.png")}
+                className="path"
+                style={{ left: "0px" }}
+              />
+              <img
+                alt="image2"
+                src={require("../../img/path4.png")}
+                className="path"
+                style={{ top: "260px" }}
+              />
+              <div className="container">
+                <div className="row">
+                  <CardDisplay locations={locations} />
                 </div>
               </div>
             </div>

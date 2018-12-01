@@ -88,11 +88,10 @@ class ImageGallery extends Component {
         <span onClick={this.closeModal} className="close">
           &times;
         </span>
-        <div className="modal-dialog modal-lg" role="document">
+        <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-body">
               <div id="imageContainer" />
-              <img alt="index" className="modal-content" id="displayImage" />
               <i
                 className="fa fa-chevron-circle-left fa-3x backBtn"
                 aria-hidden="true"

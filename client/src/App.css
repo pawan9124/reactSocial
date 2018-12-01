@@ -1,6 +1,5 @@
 .landing {
   position: relative;
-  background: url("./img/showcase.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -191,12 +190,12 @@ section {
 
 /* MODAL IMAGE CONTENT */
 
-#myModal .postImage {
+.postImage {
   cursor: pointer;
   transition: 0.3s;
 }
 
-#myModal .postImage:hover {
+.postImage:hover {
   opacity: 0.7;
 }
 
@@ -216,13 +215,13 @@ section {
 }
 
 /* Modal Content (image) */
-/* .modal-content {
+#myModal.modal-content {
   margin: auto;
   display: block;
   width: 80%;
   max-height: calc(100vh - 100px);
   max-width: 700px;
-} */
+}
 
 /* Caption of Modal Image */
 #caption {
@@ -295,6 +294,7 @@ section {
   top: 45vh;
   width: 15vw;
   height: 15vw;
+  cursor: pointer;
 }
 
 .backBtn {
@@ -303,6 +303,7 @@ section {
   top: 45vh;
   width: 15vw;
   height: 15vw;
+  cursor: pointer;
 }
 .mySlides {
   display: none;
