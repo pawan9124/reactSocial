@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import Login from "../auth/Login";
-import Register from "../auth/Register";
-// import "../../parallax.js";
+import "../../parallax.js";
 import { ReactComponent as Path } from "../../img/3-path.svg";
 
 class Landing extends Component {
   constructor() {
     super();
-    this.state = { showImage: false, showLogin: false };
-    this.showLogin = this.showLogin.bind(this);
-    this.showRegister = this.showRegister.bind(this);
+    this.state = { showImage: false };
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -19,61 +15,19 @@ class Landing extends Component {
       this.props.history.push("/dashboard");
     }
   }
-  showLogin() {
-    let modal = document.getElementById("loginPage");
-    modal.style.display = "block";
-  }
-  showRegister() {
-    let modal = document.getElementById("registerPage");
-    modal.style.display = "block";
-  }
 
   render() {
     return (
       <div>
         <header>
           <img
-            className="logo-img over"
+            id="cloud1"
+            className="layer parallax cloud small"
             alt="cloud1"
-            // data-offset="0.7"
-            src={require("../../img/sticky_logo_crop.png")}
+            data-offset="0.7"
+            src={require("../../img/cloud.svg")}
           />
-
-          <div>
-            <img
-              className="banner"
-              alt="banner"
-              // data-offset="0.7"
-              src={require("../../img/banner.svg")}
-            />
-            <button
-              className="btn btn-success"
-              style={{ float: "right", zIndex: 1 }}
-              onClick={this.showRegister}
-            >
-              Register
-            </button>
-            <button
-              className="btn btn-success"
-              style={{ float: "right", zIndex: 1 }}
-              onClick={this.showLogin}
-            >
-              Login
-            </button>
-          </div>
-
           <img
-            className="under"
-            alt="background"
-            style={{ width: "100%" }}
-            // data-offset="0.7"
-            src={require("../../img/world-tour-grey.svg")}
-          />
-          <Login />
-          <br />
-          <Register />
-
-          {/* <img
             id="cloud2"
             className="layer parallax cloud"
             alt="cloud2"
@@ -116,15 +70,15 @@ class Landing extends Component {
             width="200"
             src={require("../../img/logo.svg")}
           /> */}
-          {/* <div id="container" />
+          <div id="container" />
           <img
             id="fg"
             className="layer"
             alt="fg"
             src={require("../../img/layer-1.svg")}
-          /> */}
+          />
         </header>
-        {/* <section id="section1">
+        <section id="section1">
           <canvas id="canvas" width="460" height="460" />
         </section>
         <section id="section3">
@@ -144,7 +98,7 @@ class Landing extends Component {
         <div id="triggerStatus" />
         <section>
           <div id="square" data-inview="" />
-        </section> */}
+        </section>
       </div>
     );
   }

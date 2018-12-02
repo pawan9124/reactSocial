@@ -42,7 +42,7 @@ body {
 
 header {
   position: relative;
-  height: 525px;
+  height: 700px;
   background: linear-gradient(to bottom, #589daa 0%, #e3e7db 30%);
   background-attachment: fixed;
 }
@@ -310,4 +310,26 @@ section {
 }
 .no-padding {
   padding: 0px;
+}
+
+.logo-img {
+  height: 125px;
+  width: auto;
+}
+.under {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.over {
+  position: absolute;
+  z-index: 1;
+}
+.banner {
+  z-index: 1;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 75px;
+  left: 35%;
 }

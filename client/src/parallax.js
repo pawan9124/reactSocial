@@ -166,7 +166,7 @@ setTimeout(function() {
         { url: "./img/4-layer3.svg", x: -100, y: -150, offset: -0.3 },
         { url: "./img/4-layer2.svg", x: -90, y: 180, offset: -0.2 },
         { url: "./img/4-layer1.svg", x: -190, y: 230, offset: -0.1 },
-        { url: "./img/4-logo.svg", x: 155, y: 70, offset: 0.1 },
+        { url: "./img/logo-1.svg", x: -70, y: -100, offset: 0.1 },
         { url: "./img/4-border.svg", x: 20, y: 20, offset: 0 },
         { url: "./img/4-mask.svg", x: 0, y: 0, offset: 0 }
       ],
