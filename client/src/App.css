@@ -333,3 +333,10 @@ section {
   top: 75px;
   left: 35%;
 }
+.icon-black {
+  color: black;
+  cursor: pointer;
+}
+.input-text-color {
+  color: #181616cc !important;
+}

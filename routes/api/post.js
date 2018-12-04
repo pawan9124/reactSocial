@@ -214,7 +214,7 @@ router.delete(
         }
 
         const removeIndex = post.comments
-          .map(comment => comment.id.toString)
+          .map(comment => comment.id.toString())
           .indexOf(req.params.comment_id);
 
         //remove index

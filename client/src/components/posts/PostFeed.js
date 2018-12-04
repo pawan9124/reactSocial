@@ -9,7 +9,7 @@ class PostFeed extends Component {
 
     return posts.map(post => (
       <div className="col-md-4">
-        <PostCard key={post._id} post={post} />
+        <PostCard key={post._id} singlePost={post} />
       </div>
     ));
   }

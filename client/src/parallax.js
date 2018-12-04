@@ -81,7 +81,6 @@ setTimeout(function() {
     function handle_scroll_cave() {
       canvasRect = canvas.getBoundingClientRect();
       animateCave();
-      console.log("hgfghjk");
     }
 
     function animateCave() {
