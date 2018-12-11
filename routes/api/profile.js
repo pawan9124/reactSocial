@@ -3,14 +3,20 @@ const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
+const Trip = require("../../models/Trip");
 const validateProfileInput = require("../../validator/profile");
 const validateExperienceInput = require("../../validator/experience");
 const validateEducationInput = require("../../validator/education");
-
-//@route GET api/profile/test
-//@desc Tests profile route
-//@access Public
-router.get("/test", (req, res) => res.json({ msg: "Profile Works" }));
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "client/src/imageUploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+const upload = multer({ storage });
 
 //@route GET api/profile/all
 //@desc GET  all profiles
@@ -32,9 +38,9 @@ router.get("/all", (req, res) => {
 //@route GET api/profile/handle/:handle
 //@desc GET profile by handle
 //@access Public
-router.get("/handle/:handle", (req, res) => {
+router.get("/handle/:id", (req, res) => {
   const errors = {};
-  Profile.findOne({ handle: req.params.handle })
+  Profile.findOne({ user: req.params.id })
     .populate("user", ["name", "avatar"])
     .then(profile => {
       if (!profile) {
@@ -42,6 +48,95 @@ router.get("/handle/:handle", (req, res) => {
         res.status(404).json(errors);
       }
       res.json(profile);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
+//@route GET api/profile/handle/:handle
+//@desc GET profile by handle
+//@access Public
+router.post(
+  "/handle/:id",
+  upload.single("image"),
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // const { errors, isValid } = validateProfileInput(req.body);
+
+    // if (!isValid) {
+    //   return res.status(400).json(errors);
+    // }
+    Profile.findOne({ user: req.params.id })
+      .then(profile => {
+        let imagePath;
+        if (!profile) {
+          errors.noprofile = "There is no profile for this user";
+          res.status(404).json(errors);
+        }
+        //Getting the fields
+        if (req.file !== undefined) imagePath = req.file.filename;
+
+        const profileFields = {};
+        profileFields.location = {};
+        profileFields.social = {};
+        if (req.body.country !== undefined)
+          profileFields.location.country = req.body.country;
+        if (req.body.city !== undefined)
+          profileFields.location.city = req.body.city;
+        if (req.body.facebook !== undefined)
+          profileFields.social.facebook = req.body.facebook;
+        if (req.body.instagram !== undefined)
+          profileFields.social.instagram = req.body.instagram;
+        if (req.body.twitter !== undefined)
+          profileFields.social.twitter = req.body.twitter;
+        if (req.body.youtube !== undefined)
+          profileFields.social.youtube = req.body.youtube;
+        if (req.body.linkedIn !== undefined)
+          profileFields.social.linkedIn = req.body.linkedIn;
+        if (req.body.markWords !== undefined)
+          profileFields.markWords = req.body.markWords;
+        if (req.body.name !== undefined)
+          profileFields.name = req.body.profileName;
+
+        const userFields = {};
+        if (req.body.name !== undefined) userFields.name = req.body.name;
+        if (imagePath !== undefined) userFields.avatar = imagePath;
+        User.findOneAndUpdate(
+          { _id: req.params.id },
+          { $set: userFields }
+        ).then(user => {
+          Profile.findOneAndUpdate(
+            { user: req.params.id },
+            { $set: profileFields }
+          )
+            .populate("user", ["name", "avatar"])
+            .then(profile => {
+              res.json(profile);
+            });
+        });
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+//@route GET api/profile/handle/:handle
+//@desc GET profile by handle
+//@access Public
+router.get("/handleTrip/:id", (req, res) => {
+  const errors = {};
+  Trip.find({})
+    .populate("user", ["name", "avatar"])
+    .then(trips => {
+      if (trips.length === 0) {
+        errors.noprofile = "There is trip for this user";
+        res.status(404).json(errors);
+      }
+      const userTrips = [];
+      for (let i = 0; i < trips.length; i++) {
+        if (trips[i].user._id.equals(req.params.id)) {
+          userTrips.push(trips[i]);
+        }
+      }
+      res.json(userTrips);
     })
     .catch(err => res.status(404).json(err));
 });
@@ -81,6 +176,7 @@ router.get(
           errors.noprofile = "There is no profile for this user";
           return res.status(404).json(errors);
         }
+
         res.json(profile);
       })
       .catch(err => res.status(404).json(err));

@@ -340,3 +340,41 @@ section {
 .input-text-color {
   color: #181616cc !important;
 }
+.text-black {
+  color: black;
+}
+
+/* PROFILE PAGE CSS */
+
+#profile-page .user-profile-heading {
+  display: inline;
+  vertical-align: -2vh;
+}
+#profile-page .overflow-hidden {
+  overflow: hidden;
+}
+#profile-page .profile-overlay {
+  position: absolute;
+  text-align: center;
+  top: 4%;
+  left: 28%;
+  border-radius: 50%;
+  height: 27%;
+  width: 43%;
+  opacity: 0.5;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  background-color: black;
+}
+
+#profile-page .profile-icon {
+  bottom: 25px;
+  left: 40%;
+  position: absolute;
+}
+.camera-icon-black.fa-camera {
+  color: black;
+}
+.camera-icon-white.fa-camera {
+  color: white;
+}

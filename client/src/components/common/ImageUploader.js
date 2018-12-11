@@ -15,7 +15,6 @@ class ImageUploader extends Component {
     const files = e.target.files;
     const length = files.length;
     if (length < 6) {
-      this.props.setPropsImage(e.target.files);
       rawFiles.push(files);
       return Promise.all(
         [].map.call(files, function(file) {
@@ -31,6 +30,7 @@ class ImageUploader extends Component {
         results.forEach(result => {
           dataFile.push({ file: result.file, imagePreviewUrl: result.result });
           if (length === dataFile.length) {
+            this.props.setPropsImage(files, dataFile);
             this.setState({
               images: dataFile,
               propsImage: rawFiles
@@ -51,7 +51,7 @@ class ImageUploader extends Component {
 
   render() {
     const { images, limit } = this.state;
-    const { type } = this.props;
+    const { type, showPreview } = this.props;
 
     let $imagePreview = null;
 
@@ -62,6 +62,7 @@ class ImageUploader extends Component {
             <button
               type="button"
               className="close"
+              style={{ position: "relative", top: "0px", right: "0px" }}
               aria-label="Close"
               onClick={() => this.onRemoveClick(index)}
             >
@@ -87,7 +88,12 @@ class ImageUploader extends Component {
       <div className="previewComponent" id="imageUploader">
         <div className="image-upload">
           <label htmlFor="file-input">
-            <img alt="" src={require("../../img/image-upload.png")} />
+            {/* <img alt="" src={require("../../img/image-upload.png")} /> */}
+            <i
+              className="fa fa-camera fa-3x"
+              aria-hidden="true"
+              style={{ cursor: "pointer" }}
+            />
           </label>
           <input
             className="btn btn-info"
@@ -98,7 +104,7 @@ class ImageUploader extends Component {
             multiple={type}
           />
         </div>
-        <div className="imgPreview">{$imagePreview}</div>
+        {showPreview ? <div className="imgPreview">{$imagePreview}</div> : null}
       </div>
     );
   }

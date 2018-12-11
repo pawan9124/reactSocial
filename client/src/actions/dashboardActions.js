@@ -36,12 +36,13 @@ export const getLocation = postData => dispatch => {
 //GET SINGLE LOCATION
 export const setSingleLocation = id => dispatch => {
   Axios.get(`/api/dashboard/${id}`)
-    .then(res =>
+    .then(res => {
+      window.localStorage.setItem("location", res.data);
       dispatch({
         type: GET_SINGLE_LOCATION,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

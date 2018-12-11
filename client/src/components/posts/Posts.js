@@ -13,6 +13,7 @@ class Posts extends Component {
 
   render() {
     const { posts, loading } = this.props.post;
+    const { location } = this.props.dashboard;
     let postContent;
 
     if (posts === null || loading === true) {
@@ -40,7 +41,8 @@ Posts.propTypes = {
   post: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  dashboard: state.dashboard
 });
 
 export default connect(

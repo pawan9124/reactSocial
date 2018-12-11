@@ -30,6 +30,9 @@ const TripSchema = new Schema({
   join: {
     type: Boolean,
     default: false
+  },
+  experience: {
+    type: String
   }
 });
 

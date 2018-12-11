@@ -26,7 +26,6 @@ class CreateLocation extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      console.log("errors", nextProps.errors);
       this.setState({ errors: nextProps.errors });
     }
   }
@@ -121,6 +120,8 @@ class CreateLocation extends Component {
                         <ImageUploader
                           setPropsImage={this.setPropsImage}
                           type=""
+                          className="camera-icon-black"
+                          showPreview={true}
                         />
                         <TextFieldGroup
                           type="text"

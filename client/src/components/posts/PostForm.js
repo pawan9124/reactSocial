@@ -33,7 +33,8 @@ class PostForm extends Component {
 
     //creating the form data to post the image
     const { user } = this.props.auth;
-    const { location } = this.props.dashboard;
+    const location = window.localStorage.getItem("location");
+    console.log("Locations", location);
     const fd = new FormData();
     //Server side don't accept array of formdata so the loop is calling
     for (let i = 0; i < this.state.images.length; i++) {
@@ -74,6 +75,7 @@ class PostForm extends Component {
                 <ImageUploader
                   setPropsImage={this.setPropsImage}
                   type="multiple"
+                  showPreview={true}
                 />
               </div>
               <button type="submit" className="btn btn-dark">
