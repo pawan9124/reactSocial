@@ -61,29 +61,45 @@ class CreateLocation extends Component {
           type="button"
           className="ml-5 btn btn-primary"
           data-toggle="modal"
-          data-target="#exampleModal"
+          data-target="#createLocation"
         >
           Add Location
         </button>
 
         <div
+          id="createLocation"
           className="modal fade"
-          id="exampleModal"
           tabIndex="-1"
           role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
         >
           <div className="modal-dialog modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-body">
+            <div className="modal-content card card-register">
+              <div className="modal-header card-header">
+                <img
+                  className="card-img"
+                  src="../assets/img/square1.png"
+                  alt="Card image1"
+                />
+                <h5
+                  className="modal-title card-title"
+                  style={{ fontSize: "3em", textTransform: "none" }}
+                >
+                  Add Location
+                </h5>
+                <button
+                  type="button"
+                  onClick={this.closeModal}
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body card-body">
                 <div className="container">
                   <div className="row">
                     <div className="col-md-8 m-auto">
-                      <h1 className="display-4 text-center">Add Location</h1>
-                      <p className="lead text-center">
-                        Add Location that are not available
-                      </p>
                       <form onSubmit={this.onSubmit}>
                         <SelectListGroup
                           placeholder="Status"
@@ -120,6 +136,7 @@ class CreateLocation extends Component {
                         <ImageUploader
                           setPropsImage={this.setPropsImage}
                           type=""
+                          style={{ marginLeft: "15px" }}
                           className="camera-icon-black"
                           showPreview={true}
                         />

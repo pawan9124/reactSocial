@@ -53,7 +53,7 @@ class SelectDropdown extends React.Component {
     }
 
     return (
-      <FormControl className={classes.formControl}>
+      <FormControl className={`${classes.formControl} select-class`}>
         <InputLabel htmlFor={name}>{name}</InputLabel>
         <Select
           value={this.state.value}

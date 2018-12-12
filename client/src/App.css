@@ -378,3 +378,19 @@ section {
 .camera-icon-white.fa-camera {
   color: white;
 }
+.modal.show .modal-dialog {
+  transform: translateY(5%);
+}
+#createLocation .form-control-lg {
+  padding: 10px;
+  font-size: inherit;
+  margin: 1rem;
+  line-height: 0;
+  border-radius: 0.4285rem;
+}
+.previewComponent {
+  margin-left: 15px;
+}
+select > option {
+  color: #495057;
+}

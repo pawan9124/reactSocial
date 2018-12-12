@@ -61,7 +61,7 @@ class MapSearch extends Component {
             <div className="col-md-2 no-padding mb-3">
               {this.props.showButton ? (
                 <button
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", marginTop: "-1px" }}
                   className="btn btn-primary"
                   type="submit"
                 >

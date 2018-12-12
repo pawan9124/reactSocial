@@ -15,80 +15,66 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
     console.log("USER", user);
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/feed">
-            Post Feed
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/dashboard">
-            Dashboard
-          </Link>
-        </li>
-        <li className="nav-item">
+      <ul className="nav nav-tabs nav-tabs-white ml-auto">
+        <li className="nav-item p-0">
           <Link to={`/profile/${user.id}`}>
-            <img
-              src={user.avatar}
-              alt={user.name}
-              style={{ width: "25px", marginRight: "5px" }}
-              title="You must have a Gravatar connected to your email to display an image"
-            />
+            {user.avatar !== undefined ? (
+              <img
+                src={require("../../imageUploads/" + user.avatar)}
+                alt={user.name}
+                style={{ width: "50px" }}
+                className="img-center img-fluid rounded-circle"
+                title={user.name}
+              />
+            ) : null}
           </Link>
+        </li>
+        <li className="nav-item active p-0">
           <a
             href="/#/"
             onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
+            className="nav-link "
             style={{ display: "block" }}
+            role="tablist"
           >
-            {""}
+            <i className="tim-icons icon-button-power" />
             Logout
           </a>
         </li>
       </ul>
     );
-    const guestLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Sing Up
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/">
-            Login
-          </Link>
-        </li>
-      </ul>
-    );
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            {" "}
-            DevConnector
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
+      <div>
+        {isAuthenticated ? (
+          <nav
+            className="navbar navbar-expand-sm bg-danger mb-3"
+            style={{ height: "65px" }}
           >
-            <span className="navbar-toggler-icon" />
-          </button>
+            <div className="container">
+              <ul className="nav nav-tabs nav-tabs-white" role="tablist">
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    to="/dashboard"
+                    role="tablist"
+                  >
+                    <i className="tim-icons icon-spaceship" /> Dashboard
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/trip" role="tablist">
+                    <i className="tim-icons icon-compass-05" /> Trip
+                  </Link>
+                </li>
+              </ul>
 
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/trip">
-                  Trip
-                </Link>
-              </li>
-            </ul>
-            {isAuthenticated ? authLinks : guestLinks}
-          </div>
-        </div>
-      </nav>
+              <div className="collapse navbar-collapse" id="mobile-nav">
+                {authLinks}
+              </div>
+            </div>
+          </nav>
+        ) : null}
+      </div>
     );
   }
 }

@@ -35,12 +35,13 @@ export const getTrips = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err =>
+    .catch(err => {
+      console.log("Errr", err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 //GET POSTS

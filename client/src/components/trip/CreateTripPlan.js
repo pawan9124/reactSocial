@@ -77,26 +77,33 @@ class CreateLocation extends Component {
           Create Trip
         </button>
 
-        <div
-          className="modal fade"
-          id="createTrip"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="createTrip"
-          aria-hidden="true"
-        >
+        <div id="createTrip" className="modal fade" tabIndex="-1" role="dialog">
           <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-body">
+            <div className="modal-content card card-register">
+              <div className="modal-header card-header">
+                <img
+                  className="card-img"
+                  src="../assets/img/square1.png"
+                  alt="Card image1"
+                />
+                <h5
+                  className="modal-title card-title"
+                  style={{ fontSize: "3em", textTransform: "none" }}
+                >
+                  Create Trip
+                </h5>
+                <button
+                  type="button"
+                  onClick={this.closeModal}
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body card-body">
                 <div className="container">
-                  <div className="row mt-3">
-                    <div className="col-sm-12 p-1">
-                      <h3 className="display-4 text-center">Create Trip</h3>
-                      <p className="lead text-center">
-                        Plan your trip to make people join you
-                      </p>
-                    </div>
-                  </div>
                   <hr />
                   <div className="row mt-3">
                     <div className=" col-sm-12 ">

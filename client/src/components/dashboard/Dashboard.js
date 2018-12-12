@@ -62,7 +62,7 @@ class Dashboard extends Component {
           <Spinner />
         ) : (
           <div>
-            <div className=" page-header">
+            <div className=" page-header" style={{ marginTop: "5%" }}>
               <img
                 alt="image1"
                 src={require("../../img/blob.png")}
@@ -92,9 +92,8 @@ class Dashboard extends Component {
                 style={{ top: "0%", left: "25%" }}
               />
               <div className="container wrapper">
-                <div className="row">
+                <div className="row mt-3">
                   <div className="col-md-12">
-                    <h1 className="display-4">Dashboard</h1>
                     {dashboardContent}
                     <div height="500" width="500">
                       <MapDisplay />

@@ -19,6 +19,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import Avatar from "@material-ui/core/Avatar";
+import { Link } from "react-router-dom";
 import moment from "moment";
 
 let counter = 0;
@@ -359,15 +360,17 @@ class TableDisplay extends React.Component {
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        <Avatar
-                          alt={n.user.name}
-                          src={n.user.avatar}
-                          className={classNames(
-                            classes.avatar,
-                            classes.bigAvatar
-                          )}
-                        />
-                        <center>{n.user.name}</center>
+                        <Link to={`/profile/${n.user._id}`}>
+                          <Avatar
+                            alt={n.user.name}
+                            src={n.user.avatar}
+                            className={classNames(
+                              classes.avatar,
+                              classes.bigAvatar
+                            )}
+                          />
+                          <center>{n.user.name}</center>
+                        </Link>
                       </TableCell>
                       <TableCell numeric>{n.start}</TableCell>
                       <TableCell numeric>{n.destination}</TableCell>

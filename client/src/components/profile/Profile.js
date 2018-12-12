@@ -163,10 +163,15 @@ class Profile extends Component {
     };
     const { profile } = this.props.profile;
     const { trips } = this.props.trip;
-    if (imageSrc === "") {
-      if (this.props.profile.profile !== null)
+    console.log("imagebefore", imageSrc);
+    if (this.props.profile.profile !== null) {
+      if (
+        this.props.profile.profile.user !== null &&
+        this.props.profile.profile.user.avatar !== undefined
+      ) {
         imageSrc = require("../../imageUploads/" +
           this.props.profile.profile.user.avatar);
+      }
     }
 
     return (
