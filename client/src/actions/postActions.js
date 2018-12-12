@@ -55,12 +55,13 @@ export const getPost = id => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(err => {
+      console.log("ERR", err);
       dispatch({
         type: GET_POST,
         payload: null
-      })
-    );
+      });
+    });
 };
 
 //Delete POST

@@ -19,21 +19,23 @@ class ImageGallery extends Component {
   }
 
   createImageArray() {
-    const imageTemp = this.state.imageHolder.map((data, index) => {
-      return (
-        <img
-          key={index}
-          height="170"
-          width="170"
-          className="postImage"
-          src={require("../../imageUploads/" + data.src)}
-          alt="id"
-          onClick={this.popupImage.bind(this, data.src, index)}
-        />
-      );
-    });
+    if (this.state.imageHolder !== undefined) {
+      const imageTemp = this.state.imageHolder.map((data, index) => {
+        return (
+          <img
+            key={index}
+            height="170"
+            width="170"
+            className="postImage"
+            src={require("../../imageUploads/" + data.src)}
+            alt="id"
+            onClick={this.popupImage.bind(this, data.src, index)}
+          />
+        );
+      });
 
-    this.setState({ images: imageTemp });
+      this.setState({ images: imageTemp });
+    }
   }
 
   popupImage(src, index) {

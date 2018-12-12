@@ -33,7 +33,7 @@ class PostForm extends Component {
 
     //creating the form data to post the image
     const { user } = this.props.auth;
-    const location = window.localStorage.getItem("location");
+    const location = JSON.parse(window.localStorage.getItem("location"));
     console.log("Locations", location);
     const fd = new FormData();
     //Server side don't accept array of formdata so the loop is calling
@@ -47,9 +47,10 @@ class PostForm extends Component {
     fd.append("state", location.state);
     fd.append("city", location.city);
     fd.append("zipcode", location.zipcode);
+    console.log("FD", fd);
 
     this.props.addPost(fd);
-    this.setState({ text: "" });
+    // this.setState({ text: "" });
   }
 
   setPropsImage(images) {

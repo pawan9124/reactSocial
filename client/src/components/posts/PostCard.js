@@ -90,10 +90,12 @@ class PostCard extends Component {
   }
   findUserLike(likes) {
     const { auth } = this.props;
-    if (likes.filter(like => like.user === auth.user.id).length > 0) {
-      return true;
-    } else {
-      return false;
+    if (likes !== undefined) {
+      if (likes.filter(like => like.user === auth.user.id).length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -123,34 +125,41 @@ class PostCard extends Component {
     const { errors, post } = this.state;
     let commentsList, dropdown;
     let userLiked = this.findUserLike(post.likes);
-    commentsList = post.comments.map((comment, index) => {
-      return (
-        <div className="row" key={"comment" + index}>
-          <div className="col-md-2">
-            <a href="profile.html">
-              <img
-                className="rounded-circle d-none d-md-block"
-                src={comment.avatar}
-                alt=""
-              />
-            </a>
-            <p className="text-center input-text-color">{comment.name}</p>
+    if (post !== null && post.comments !== undefined) {
+      commentsList = post.comments.map((comment, index) => {
+        console.log("COMMENT", comment);
+        return (
+          <div className="row" key={"comment" + index}>
+            <div className="col-md-2">
+              <Link to={`/profile/${comment.user}`}>
+                <img
+                  className="rounded-circle d-none d-md-block"
+                  src={require("../../imageUploads/" + comment.avatar)}
+                  alt=""
+                />
+              </Link>
+              <p className="text-center input-text-color">{comment.name}</p>
+            </div>
+            <div className="col-md-9">
+              <p className="lead input-text-color">{comment.text}</p>
+            </div>
+            <div className="col-md-1 no-padding">
+              {comment.user === auth.user.id ? (
+                <i
+                  onClick={this.onDeleteComment.bind(
+                    this,
+                    post._id,
+                    comment._id
+                  )}
+                  className="icon-black tim-icons icon-trash-simple"
+                />
+              ) : null}
+            </div>
+            <hr style={{ width: "100%" }} />
           </div>
-          <div className="col-md-9">
-            <p className="lead input-text-color">{comment.text}</p>
-          </div>
-          <div className="col-md-1 no-padding">
-            {comment.user === auth.user.id ? (
-              <i
-                onClick={this.onDeleteComment.bind(this, post._id, comment._id)}
-                className="icon-black tim-icons icon-trash-simple"
-              />
-            ) : null}
-          </div>
-          <hr style={{ width: "100%" }} />
-        </div>
-      );
-    });
+        );
+      });
+    }
 
     dropdown = (
       <div>
@@ -182,11 +191,13 @@ class PostCard extends Component {
           avatar={
             <Avatar aria-label="Recipe" className={classes.avatar}>
               <Link to={`/profile/${post.user}`}>
-                <img
-                  className="rounded-circle d-none d-md-block"
-                  src={post.avatar}
-                  alt=""
-                />
+                {post.avatar !== undefined ? (
+                  <img
+                    className="rounded-circle d-none d-md-block"
+                    src={require("../../imageUploads/" + post.avatar)}
+                    alt=""
+                  />
+                ) : null}
               </Link>
             </Avatar>
           }
@@ -201,7 +212,7 @@ class PostCard extends Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <span className="badge badge-pill badge-success">
-            {post.likes.length}
+            {post.likes !== undefined ? post.likes.length : null}
           </span>
 
           {!userLiked ? (

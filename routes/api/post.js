@@ -88,6 +88,7 @@ router.delete(
     Profile.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
         .then(post => {
+          const postId = post._id;
           //Check for the owner
           if (post.user.toString() !== req.user.id) {
             return res
@@ -95,7 +96,7 @@ router.delete(
               .json({ notauthorized: "User not authorized" });
           }
           //Delete
-          post.remove().then(() => res.json({ success: true }));
+          post.remove().then(() => res.json(postId));
         })
         .catch(err => res.status(404).json({ postnotfound: "No post found" }));
     });
