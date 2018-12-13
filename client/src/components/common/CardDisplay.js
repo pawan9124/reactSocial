@@ -35,7 +35,7 @@ class CardDisplay extends Component {
             <CardActionArea>
               <Link
                 onClick={this.setLocation.bind(this, data._id)}
-                to={`/feed/${data.country}`}
+                to={`/feed/${data.city}`}
               >
                 <CardMedia
                   className={classes.media}
@@ -56,7 +56,7 @@ class CardDisplay extends Component {
             <CardActions>
               <Link
                 onClick={this.setLocation.bind(this, data._id)}
-                to={`/feed/${data.country}`}
+                to={`/feed/${data.city}`}
               >
                 Explore
               </Link>

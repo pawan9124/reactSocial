@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import LocationSearchBox from "../common/LocationSearchBox";
 import DatePicker from "../common/DatePicker";
 import { addTrip } from "../../actions/tripActions";
@@ -65,7 +64,6 @@ class CreateLocation extends Component {
   }
 
   render() {
-    const { errors } = this.state;
     return (
       <div className="mt-5">
         <button

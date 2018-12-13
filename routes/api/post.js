@@ -23,10 +23,12 @@ router.get("/test", (req, res) => res.json({ msg: "Post Works" }));
 //@route GET api/posts
 //@desc Create post
 //@access Public
-router.get("/", (req, res) => {
-  Post.find()
+router.post("/findCity", (req, res) => {
+  Post.find({ "location.city": req.body.city })
     .sort({ date: -1 })
-    .then(posts => res.json(posts))
+    .then(posts => {
+      res.json(posts);
+    })
     .catch(err => res.status(404).json({ nopostsfound: "No posts found" }));
 });
 

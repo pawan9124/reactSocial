@@ -30,12 +30,6 @@ class SelectDropdown extends React.Component {
   componentDidMount() {}
 
   handleChange = event => {
-    console.log(
-      "event.target.name",
-      event.target.name,
-      "event.target.value",
-      event.target.value
-    );
     this.setState({ [event.target.name.name]: event.target.value });
   };
 

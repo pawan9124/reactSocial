@@ -99,7 +99,7 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/feed/:country" component={Posts} />
+                <PrivateRoute exact path="/feed/:city" component={Posts} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={Post} />

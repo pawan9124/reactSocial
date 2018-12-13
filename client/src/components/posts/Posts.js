@@ -8,7 +8,10 @@ import PostFeed from "./PostFeed";
 
 class Posts extends Component {
   componentDidMount() {
-    this.props.getPosts();
+    if (this.props.match.params.city) {
+      const city = { city: this.props.match.params.city };
+      this.props.getPosts(city);
+    }
   }
 
   render() {

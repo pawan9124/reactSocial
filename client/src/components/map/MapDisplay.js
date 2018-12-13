@@ -19,7 +19,6 @@ class MapDisplay extends Component {
   locateMap() {
     //  Define search controls
     const mapData = this.state.searchLocation;
-    console.log("MAPADATA", mapData);
     let obj;
     if (mapData === null || Object.keys(mapData).length === 0) {
       obj = {
@@ -36,7 +35,6 @@ class MapDisplay extends Component {
         setView: 12
       };
     }
-    console.log("OBE", obj);
     const markerIcons = L.icon({
       iconUrl: require("../../img/marker-icon.png"),
       shadowUrl: require("../../img/marker-shadow.png"),

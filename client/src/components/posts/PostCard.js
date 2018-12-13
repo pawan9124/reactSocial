@@ -127,7 +127,6 @@ class PostCard extends Component {
     let userLiked = this.findUserLike(post.likes);
     if (post !== null && post.comments !== undefined) {
       commentsList = post.comments.map((comment, index) => {
-        console.log("COMMENT", comment);
         return (
           <div className="row" key={"comment" + index}>
             <div className="col-md-2">

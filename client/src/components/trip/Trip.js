@@ -31,7 +31,6 @@ class Trip extends Component {
 
   render() {
     const { trips, loading } = this.props.trip;
-    console.log("TRIPS", trips);
     let tableData = [];
     let displayHolder;
     if (loading) {

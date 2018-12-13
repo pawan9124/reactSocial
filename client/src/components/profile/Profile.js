@@ -163,7 +163,6 @@ class Profile extends Component {
     };
     const { profile } = this.props.profile;
     const { trips } = this.props.trip;
-    console.log("imagebefore", imageSrc);
     if (this.props.profile.profile !== null) {
       if (
         this.props.profile.profile.user !== null &&

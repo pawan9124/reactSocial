@@ -47,7 +47,6 @@ router.get(
       .sort({ from: 1 })
       .populate("user", ["name", "avatar"])
       .then(trips => {
-        console.log("TRIPS", trips);
         res.json(trips);
       })
       .catch(err => res.status(404).json({ nopostsfound: "No Trips found" }));

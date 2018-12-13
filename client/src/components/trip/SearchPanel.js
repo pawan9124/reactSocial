@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import LocationSearchBox from "../common/LocationSearchBox";
 import { connect } from "react-redux";
 import DatePicker from "../common/DatePicker";
-import TimeInput from "material-ui-time-picker";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { getSearchedTrips } from "../../actions/tripActions";
@@ -27,7 +26,6 @@ class SearchPanel extends Component {
   }
 
   searchTrips() {
-    console.log("Tisss", this.state);
     this.props.getSearchedTrips(this.state);
   }
   handleChange(time, name) {

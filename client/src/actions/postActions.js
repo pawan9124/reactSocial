@@ -28,9 +28,9 @@ export const addPost = postData => dispatch => {
 };
 
 //Get Posts
-export const getPosts = () => dispatch => {
+export const getPosts = city => dispatch => {
   dispatch(postLoading());
-  Axios.get("/api/posts")
+  Axios.post("/api/posts/findCity", city)
     .then(res =>
       dispatch({
         type: GET_POSTS,
@@ -110,7 +110,6 @@ export const addComment = (postId, commentData) => dispatch => {
   dispatch(clearErrors());
   Axios.post(`/api/posts/comment/${postId}`, commentData)
     .then(res => {
-      console.log("RESPONSE", res);
       dispatch({
         type: GET_POST,
         payload: res.data

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 // import "../../parallax.js";
-import { ReactComponent as Path } from "../../img/3-path.svg";
+// import { ReactComponent as Path } from "../../img/3-path.svg";
 
 class Landing extends Component {
   constructor() {

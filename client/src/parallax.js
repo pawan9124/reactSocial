@@ -22,7 +22,6 @@ setTimeout(function() {
   }
 
   function animate() {
-    console.log("FUCKER PUNCH");
     //_scrollY = window.scrollY;  //for mobile only?
     for (var i = 0; i < _layers.length; i += 1) {
       var oldY = _layers[i].y;
