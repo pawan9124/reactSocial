@@ -17,7 +17,7 @@ class Navbar extends Component {
       <ul className="nav nav-tabs nav-tabs-white ml-auto">
         <li className="nav-item p-0">
           <Link to={`/profile/${user.id}`}>
-            {user.avatar !== undefined ? (
+            {user.avatar !== undefined && user.avatar !== "" ? (
               <img
                 src={require("../../imageUploads/" + user.avatar)}
                 alt={user.name}
@@ -25,7 +25,15 @@ class Navbar extends Component {
                 className="img-center img-fluid rounded-circle"
                 title={user.name}
               />
-            ) : null}
+            ) : (
+              <img
+                src={require("../../imageUploads/blank_profile.svg")}
+                alt={user.name}
+                style={{ width: "50px" }}
+                className="img-center img-fluid rounded-circle"
+                title={user.name}
+              />
+            )}
           </Link>
         </li>
         <li className="nav-item active p-0">
