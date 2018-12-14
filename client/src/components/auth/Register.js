@@ -54,6 +54,7 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
+
     return (
       <div id="registerPage" className="modal over" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
@@ -77,6 +78,11 @@ class Register extends Component {
             </div>
             <div className="modal-body card-body">
               <div className="card-body">
+                <div>
+                  <center>
+                    <p style={{ color: "orange" }} id="registerMessage" />
+                  </center>
+                </div>
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group">
                     <div className="input-group-prepend">

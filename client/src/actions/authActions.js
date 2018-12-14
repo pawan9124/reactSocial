@@ -8,6 +8,8 @@ import jwt_decode from "jwt-decode";
 export const registerUser = (userData, history) => dispatch => {
   Axios.post("/api/userAuth/register", userData)
     .then(res => {
+      document.getElementById("registerMessage").innerHTML =
+        "User Registered Successfully!";
       history.push("/");
     })
     .catch(err => {
