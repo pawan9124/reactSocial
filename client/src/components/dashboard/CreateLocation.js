@@ -100,7 +100,10 @@ class CreateLocation extends Component {
                 <div className="container">
                   <div className="row">
                     <div className="col-md-8 m-auto">
-                      <form onSubmit={this.onSubmit}>
+                      <form
+                        encType="multipart/form-data"
+                        onSubmit={this.onSubmit}
+                      >
                         <SelectListGroup
                           placeholder="Status"
                           name="country"
