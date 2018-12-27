@@ -31,7 +31,7 @@ router.post("/register", (req, res) => {
       errors.email = "Email Already Exists";
       return res.status(400).json(errors);
     } else {
-      const avatar = "";
+      const avatar = "blank_profile.svg";
 
       let newUser = new User({
         name: req.body.name,

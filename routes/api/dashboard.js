@@ -4,15 +4,30 @@ const Locations = require("../../models/Locations");
 const Zipcode = require("../../models/Zipcode");
 const passport = require("passport");
 const validateLocations = require("../../validator/locations");
+var cloudinary = require("cloudinary");
+var cloudinaryStorage = require("multer-storage-cloudinary");
+var keys = require("../../config/keys");
 const multer = require("multer");
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "client/src/imageUploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+
+cloudinary.config(keys.cloudinary_config);
+
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "imageUploads",
+  allowedFormats: ["jpg", "png"],
+  filename: function(req, file, cb) {
+    cb(undefined, Date.now() + "-" + file.originalname);
   }
 });
+
+// var storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "client/src/imageUploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   }
+// });
 const upload = multer({ storage });
 
 //@route GET api/posts
@@ -87,12 +102,13 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
+
     Zipcode.findOne({ zipcode: req.body.zipcode }).then(zip => {
       if (zip !== null && zip !== undefined && zip !== "") {
         res.status(404).json({ zipcode: "Zipcode already registred" });
       } else {
-        if (req.file.filename !== undefined) {
-          imagePath = req.file.filename;
+        if (req.file !== undefined) {
+          if (req.file.url !== undefined) imagePath = req.file.url;
         }
         const newLocations = new Locations({
           country: req.body.country.trim().toLowerCase(),
