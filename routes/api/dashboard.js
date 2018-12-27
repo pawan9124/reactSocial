@@ -7,7 +7,7 @@ const validateLocations = require("../../validator/locations");
 const multer = require("multer");
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "client/src/imageUploads/");
+    cb(null, "/client/src/imageUploads/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
