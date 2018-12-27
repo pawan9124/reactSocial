@@ -39,7 +39,11 @@ class CardDisplay extends Component {
               >
                 <CardMedia
                   className={classes.media}
-                  image={require("../../imageUploads/" + data.image)}
+                  image={
+                    data.image !== null && data.image !== ""
+                      ? require("../../imageUploads/" + data.image)
+                      : require("../../imageUploads/default_location.png")
+                  }
                   title={data.city}
                 />
               </Link>

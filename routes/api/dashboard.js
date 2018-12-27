@@ -81,6 +81,7 @@ router.post(
   upload.single("image"),
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    let imagePath = "";
     const { errors, isValid } = validateLocations(req.body);
 
     if (!isValid) {
@@ -90,7 +91,9 @@ router.post(
       if (zip !== null && zip !== undefined && zip !== "") {
         res.status(404).json({ zipcode: "Zipcode already registred" });
       } else {
-        const imagePath = req.file.filename;
+        if (req.file.filename !== undefined) {
+          imagePath = req.file.filename;
+        }
         const newLocations = new Locations({
           country: req.body.country.trim().toLowerCase(),
           state:
