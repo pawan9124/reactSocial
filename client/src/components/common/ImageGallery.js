@@ -27,7 +27,7 @@ class ImageGallery extends Component {
             height="170"
             width="170"
             className="postImage"
-            src={require("../../imageUploads/" + data.src)}
+            src={data.src}
             alt="id"
             onClick={this.popupImage.bind(this, data.src, index)}
           />
@@ -48,7 +48,7 @@ class ImageGallery extends Component {
     const imagesArray = this.state.imageHolder;
     for (let i = 0; i < imagesArray.length; i++) {
       let img = document.createElement("img");
-      img.src = require("../../imageUploads/" + imagesArray[i].src);
+      img.src = imagesArray[i].src;
       img.key = i;
       img.alt = i;
       img.className = "mySlides modal-content";

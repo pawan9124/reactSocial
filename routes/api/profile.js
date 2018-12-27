@@ -7,13 +7,23 @@ const Trip = require("../../models/Trip");
 const validateProfileInput = require("../../validator/profile");
 const validateExperienceInput = require("../../validator/experience");
 const validateEducationInput = require("../../validator/education");
+var cloudinary = require("cloudinary");
+var cloudinaryStorage = require("multer-storage-cloudinary");
+var keys = require("../../config/keys");
 const multer = require("multer");
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "client/src/imageUploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+
+cloudinary.config({
+  cloud_name: keys.cloudinary_cloud_name,
+  api_key: keys.cloudinary_api_key,
+  api_secret: keys.cloudinary_api_secret
+});
+
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "imageUploads",
+  allowedFormats: ["jpg", "png"],
+  filename: function(req, file, cb) {
+    cb(undefined, Date.now() + "-" + file.originalname);
   }
 });
 const upload = multer({ storage });
@@ -73,7 +83,7 @@ router.post(
           res.status(404).json(errors);
         }
         //Getting the fields
-        if (req.file !== undefined) imagePath = req.file.filename;
+        if (req.file !== undefined) imagePath = req.file.url;
 
         const profileFields = {};
         profileFields.location = {};

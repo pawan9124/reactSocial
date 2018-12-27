@@ -4,13 +4,23 @@ const Post = require("../../models/Post");
 const Profile = require("../../models/Profile");
 const passport = require("passport");
 const validatePostInput = require("../../validator/post");
+var cloudinary = require("cloudinary");
+var cloudinaryStorage = require("multer-storage-cloudinary");
+var keys = require("../../config/keys");
 const multer = require("multer");
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "client/src/imageUploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+
+cloudinary.config({
+  cloud_name: keys.cloudinary_cloud_name,
+  api_key: keys.cloudinary_api_key,
+  api_secret: keys.cloudinary_api_secret
+});
+
+var storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "imageUploads",
+  allowedFormats: ["jpg", "png"],
+  filename: function(req, file, cb) {
+    cb(undefined, Date.now() + "-" + file.originalname);
   }
 });
 const upload = multer({ storage });
@@ -57,7 +67,7 @@ router.post(
     }
     const imagesPath = [];
     for (let i = 0; i < req.files.length; i++) {
-      imagesPath.push({ src: req.files[i].filename });
+      imagesPath.push({ src: req.files[i].url });
     }
     const newPost = new Post({
       text: req.body.text,

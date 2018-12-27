@@ -169,8 +169,7 @@ class Profile extends Component {
         this.props.profile.profile.user.avatar !== undefined &&
         this.props.profile.profile.user.avatar !== ""
       ) {
-        imageSrc = require("../../imageUploads/" +
-          this.props.profile.profile.user.avatar);
+        imageSrc = this.props.profile.profile.user.avatar;
       }
     }
 

@@ -123,6 +123,12 @@ class PostCard extends Component {
   render() {
     const { classes, auth } = this.props;
     const { errors, post } = this.state;
+    let postAvatar = "";
+    if (post.avatar === "") {
+      postAvatar = require("../../imageUploads/blank_profile.svg");
+    } else {
+      postAvatar = post.avatar;
+    }
     let commentsList, dropdown;
     let userLiked = this.findUserLike(post.likes);
     if (post !== null && post.comments !== undefined) {
@@ -133,7 +139,7 @@ class PostCard extends Component {
               <Link to={`/profile/${comment.user}`}>
                 <img
                   className="rounded-circle d-none d-md-block"
-                  src={require("../../imageUploads/" + comment.avatar)}
+                  src={comment.avatar}
                   alt=""
                 />
               </Link>
@@ -193,7 +199,7 @@ class PostCard extends Component {
                 {post.avatar !== undefined ? (
                   <img
                     className="rounded-circle d-none d-md-block"
-                    src={require("../../imageUploads/" + post.avatar)}
+                    src={postAvatar}
                     alt=""
                   />
                 ) : null}

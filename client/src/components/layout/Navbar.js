@@ -19,7 +19,7 @@ class Navbar extends Component {
           <Link to={`/profile/${user.id}`}>
             {user.avatar !== undefined && user.avatar !== "" ? (
               <img
-                src={require("../../imageUploads/" + user.avatar)}
+                src={user.avatar}
                 alt={user.name}
                 style={{ width: "50px" }}
                 className="img-center img-fluid rounded-circle"
