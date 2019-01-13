@@ -31,7 +31,7 @@ class Landing extends Component {
   render() {
     return (
       <div>
-        <header>
+        <header className="bg-image">
           <img
             className="logo-img over"
             alt="cloud1"
@@ -177,6 +177,7 @@ class Landing extends Component {
             src={require("../../img/layer-1.svg")}
           /> */}
         </header>
+        <section id="section1" />
         {/* <section id="section1">
           <canvas id="canvas" width="460" height="460" />
         </section>
