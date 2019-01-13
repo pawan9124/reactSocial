@@ -6,26 +6,30 @@ import { addTrip } from "../../actions/tripActions";
 import TimeInput from "material-ui-time-picker";
 import moment from "moment";
 
+const initialState = {
+  travellers: "",
+  searchLocation: "",
+  start: "",
+  destination: "",
+  startTime: "",
+  endTime: "",
+  from: "",
+  to: "",
+  errors: {},
+  showLoader: false
+};
+
 class CreateLocation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      travellers: "",
-      searchLocation: "",
-      start: "",
-      destination: "",
-      startTime: "",
-      endTime: "",
-      from: "",
-      to: "",
-      errors: {}
-    };
+    this.state = initialState;
 
     this.onChange = this.onChange.bind(this);
     this.createTrip = this.createTrip.bind(this);
     this.setDate = this.setDate.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.switchOffLoader = this.switchOffLoader.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -33,6 +37,7 @@ class CreateLocation extends Component {
     }
   }
   createTrip(e) {
+    // this.setState({ showLoader: true });
     const tripData = this.state;
     const userId = this.props.auth.user.id;
     const postData = {
@@ -63,6 +68,9 @@ class CreateLocation extends Component {
     this.setState({ [name]: convertime });
   }
 
+  switchOffLoader() {
+    this.setState(initialState);
+  }
   render() {
     return (
       <div className="mt-5">
@@ -71,6 +79,7 @@ class CreateLocation extends Component {
           className="ml-5 btn btn-primary"
           data-toggle="modal"
           data-target="#createTrip"
+          onClick={this.switchOffLoader}
         >
           Create Trip
         </button>
@@ -211,6 +220,11 @@ class CreateLocation extends Component {
                         Submit
                       </button>
                     </div>
+                    {this.state.showLoader ? (
+                      <div className="col-md-2">
+                        <div className="loader" />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>

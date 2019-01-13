@@ -13,7 +13,10 @@ import {
 export const addLocation = postData => dispatch => {
   dispatch(clearErrors());
   Axios.post("/api/dashboard/createLocation", postData)
-    .then(res => dispatch({ type: ADD_LOCATION, payload: res.data }))
+    .then(res => {
+      document.getElementById("closeModalLocation").click();
+      dispatch({ type: ADD_LOCATION, payload: res.data });
+    })
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 

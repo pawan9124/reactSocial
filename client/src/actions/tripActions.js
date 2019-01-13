@@ -12,12 +12,13 @@ import {
 export const addTrip = postData => dispatch => {
   dispatch(clearErrors());
   Axios.post("/api/trip", postData)
-    .then(res =>
+    .then(res => {
+      document.getElementById("closeModalLocation").click();
       dispatch({
         type: ADD_TRIP,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

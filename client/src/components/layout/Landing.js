@@ -35,17 +35,18 @@ class Landing extends Component {
           <img
             className="logo-img over"
             alt="cloud1"
-            // data-offset="0.7"
-            src={require("../../img/sticky_logo_crop.png")}
+            src={
+              require("../../img/sticky_logo_crop.png") // data-offset="0.7"
+            }
           />
 
           <div>
-            <img
+            {/* <img
               className="banner"
               alt="banner"
               // data-offset="0.7"
               src={require("../../img/banner.svg")}
-            />
+            /> */}
             <button
               className="btn btn-success"
               style={{ float: "right", zIndex: 1 }}
@@ -61,14 +62,66 @@ class Landing extends Component {
               Login
             </button>
           </div>
+          <div id="background_image">
+            <img
+              alt="compass"
+              className="compass"
+              src={require("../../img/homepage/compass.png")}
+            />
+            <img
+              alt="arrow-left"
+              className="arrow-left-compass"
+              src={require("../../img/homepage/arrow-right.svg")}
+            />
+            <img
+              alt="stamp"
+              className="stamp"
+              src={require("../../img/homepage/stamp.png")}
+            />
+            <img
+              alt="arrow-left-up"
+              className="arrow-left-up"
+              src={require("../../img/homepage/arrow-up-left.svg")}
+            />
+            <img
+              alt="pics"
+              className="pics"
+              src={require("../../img/homepage/pics.png")}
+            />
+            <img
+              alt="arrow-rotate"
+              className="arrow-down-rotate"
+              src={require("../../img/homepage/arrow-down.svg")}
+            />
+            <img
+              alt="title"
+              className="title-product"
+              src={require("../../img/homepage/title.png")}
+            />
+            <img
+              alt="map"
+              className="map"
+              src={require("../../img/homepage/map.png")}
+            />
+            <img
+              alt="arrow-right-down"
+              className="arrow-right-down"
+              src={require("../../img/homepage/arrow-right.svg")}
+            />
+            <img
+              alt="shell"
+              className="shell"
+              src={require("../../img/homepage/shell.png")}
+            />
+          </div>
 
-          <img
+          {/* <img
             className="under"
             alt="background"
             style={{ width: "100%" }}
             // data-offset="0.7"
             src={require("../../img/world-tour-grey.svg")}
-          />
+          /> */}
           <Login />
           <br />
           <Register />

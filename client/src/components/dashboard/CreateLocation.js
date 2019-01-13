@@ -7,22 +7,27 @@ import ImageUploader from "../common/ImageUploader";
 import SelectListGroup from "../common/SelectListGroup";
 import CountryList from "../../utils/countryList.json";
 
+const initialState = {
+  country: "India",
+  state: "",
+  city: "",
+  zipcode: "",
+  image: "",
+  description: "",
+  errors: {},
+  showPreview: true,
+  showLoader: false
+};
+
 class CreateLocation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      country: "India",
-      state: "",
-      city: "",
-      zipcode: "",
-      image: "",
-      description: "",
-      errors: {}
-    };
+    this.state = initialState;
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.setPropsImage = this.setPropsImage.bind(this);
+    this.switchOffLoader = this.switchOffLoader.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -33,6 +38,7 @@ class CreateLocation extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   onSubmit(e) {
+    this.setState({ showLoader: true });
     const fd = new FormData();
     fd.append("country", this.state.country);
     fd.append("state", this.state.state);
@@ -49,7 +55,12 @@ class CreateLocation extends Component {
   }
 
   setPropsImage(image) {
-    this.setState({ image: image });
+    this.setState({ image: image, showPreview: true });
+  }
+
+  switchOffLoader() {
+    this.setState(initialState);
+    this.setState({ showPreview: false });
   }
 
   render() {
@@ -62,6 +73,7 @@ class CreateLocation extends Component {
           className="ml-5 btn btn-primary"
           data-toggle="modal"
           data-target="#createLocation"
+          onClick={this.switchOffLoader}
         >
           Add Location
         </button>
@@ -102,6 +114,7 @@ class CreateLocation extends Component {
                     <div className="col-md-8 m-auto">
                       <form
                         encType="multipart/form-data"
+                        id="createLocationForm"
                         onSubmit={this.onSubmit}
                       >
                         <SelectListGroup
@@ -141,7 +154,7 @@ class CreateLocation extends Component {
                           type=""
                           style={{ marginLeft: "15px" }}
                           className="camera-icon-black"
-                          showPreview={true}
+                          showPreview={this.state.showPreview}
                         />
                         <TextFieldGroup
                           type="text"
@@ -151,7 +164,7 @@ class CreateLocation extends Component {
                           onChange={this.onChange}
                         />
                         <div className="row mt-4 mb-4">
-                          <div className="col-md-6">
+                          <div className="col-md-5">
                             <button
                               id="closeModalLocation"
                               type="button"
@@ -161,11 +174,16 @@ class CreateLocation extends Component {
                               Close
                             </button>
                           </div>
-                          <div className="col-md-6">
+                          <div className="col-md-5">
                             <input
                               type="submit"
                               className="btn btn-info btn-block"
                             />
+                          </div>
+                          <div className="col-md-2">
+                            {this.state.showLoader ? (
+                              <div className="loader" />
+                            ) : null}
                           </div>
                         </div>
                       </form>

@@ -5,23 +5,38 @@ import { addPost } from "../../actions/postActions";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import ImageUploader from "../common/ImageUploader";
 
+const initialState = {
+  text: "",
+  images: [],
+  errors: {},
+  post: [],
+  showPreview: false,
+  showLoader: false
+};
+
 class PostForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: "",
-      images: [],
-      errors: {}
-    };
+    this.state = initialState;
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.setPropsImage = this.setPropsImage.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    console.log("JINDA");
+    this.setState({ post: this.props.post.posts });
+  }
+
+  componentWillReceiveProps(nextProps, prevState) {
+    console.log("nexprops", nextProps, "prevState", postLength);
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+    if (nextProps.post.posts.length !== postLength) {
+      this.setState(initialState);
+    }
+    let postLength = this.props.post.length;
   }
 
   onChange(e) {
@@ -30,6 +45,7 @@ class PostForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    this.setState({ showLoader: true });
 
     //creating the form data to post the image
     const { user } = this.props.auth;
@@ -52,7 +68,7 @@ class PostForm extends Component {
   }
 
   setPropsImage(images) {
-    this.setState({ images: images });
+    this.setState({ images: images, showPreview: true });
   }
 
   render() {
@@ -74,12 +90,13 @@ class PostForm extends Component {
                 <ImageUploader
                   setPropsImage={this.setPropsImage}
                   type="multiple"
-                  showPreview={true}
+                  showPreview={this.state.showPreview}
                 />
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit
               </button>
+              {this.state.showLoader ? <span className="loader" /> : null}
             </form>
           </div>
         </div>
@@ -97,7 +114,8 @@ PostForm.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
-  dashboard: state.dashboard
+  dashboard: state.dashboard,
+  post: state.post
 });
 
 export default connect(
