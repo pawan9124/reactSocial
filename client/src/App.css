@@ -99,8 +99,8 @@ header {
 
 section {
   position: relative;
-  height: 500px;
-  background: #111628;
+  top: 0px;
+  bottom: 0px;
 }
 #canvas {
   display: block;
@@ -505,4 +505,54 @@ select > option {
   right: -28px;
   z-index: 0;
   transform: rotate(180deg);
+}
+
+#section_1 {
+  height: 500px;
+  width: 100%;
+  background-image: url("./img/homepage/journey_mate.svg");
+  background-size: cover;
+  background-position: 50% 66%;
+  display: table;
+  background-attachment: fixed;
+}
+#section_2 {
+  height: 500px;
+  width: 100%;
+  background-image: url("./img/homepage/experience.svg");
+  background-size: cover;
+  background-position: 50% 91%;
+  display: table;
+  background-attachment: fixed;
+}
+#section_3 {
+  height: 500px;
+  width: 100%;
+  background-image: url("./img/homepage/sticky.svg");
+  background-size: cover;
+  background-position: 50% 91%;
+  display: table;
+  background-attachment: fixed;
+}
+#section_4 {
+  height: 500px;
+  width: 100%;
+  background-image: url("./img/homepage/star.svg");
+  background-size: cover;
+  background-position: 50% 50%;
+  display: table;
+  background-attachment: fixed;
+}
+.center-text {
+  text-align: center;
+  background-color: #353638;
+  /* opacity: 0.4; */
+}
+.center-text h1 {
+  color: greenyellow;
+  opacity: 1;
+}
+.center-text p {
+  color: white;
+  opacity: 1;
 }

@@ -177,28 +177,54 @@ class Landing extends Component {
             src={require("../../img/layer-1.svg")}
           /> */}
         </header>
-        <section id="section1" />
-        {/* <section id="section1">
-          <canvas id="canvas" width="460" height="460" />
+        <section id="section_1">
+          <div className="center-text">
+            <h1>Find Journey Mate</h1>
+            <div className="row">
+              <div className="col-md-12">
+                <p>
+                  Eliminate your boredom while travelling. Find your journey
+                  mate travelling to the same destination.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
-        <section id="section3">
-          <img
-            className="layer layer2"
-            src={require("../../img/3-bg.svg")}
-            alt=""
-          />
-          <img
-            id="light"
-            className="abs"
-            src={require("../../img/2-light.png")}
-            alt=""
-          />
-          <Path />
+        <section id="section_2">
+          <div className="center-text">
+            <h1>Share Your Experience</h1>
+            <div className="row">
+              <div className="col-md-12">
+                <p>Share your experience of travelling with the world.</p>
+              </div>
+            </div>
+          </div>
         </section>
-        <div id="triggerStatus" />
-        <section>
-          <div id="square" data-inview="" />
-        </section> */}
+        <section id="section_3">
+          <div className="center-text">
+            <h1>Stick Your Photo</h1>
+            <div className="row">
+              <div className="col-md-12">
+                <p>
+                  Stick your photo to the sticky wall of the memorable places.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="section_4">
+          <div className="center-text">
+            <h1>Become a Star</h1>
+            <div className="row">
+              <div className="col-md-12">
+                <p>
+                  Become popular tourist or choosed as best experience and pic
+                  sharing for the journey
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
