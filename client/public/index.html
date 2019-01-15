@@ -53,6 +53,28 @@
       href="/assets/css/blk-design-system.min.css"
       rel="stylesheet"
     />
+    <style>
+      #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+      }
+
+      #loading-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+      }
+    </style>
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -65,11 +87,19 @@
     <title>Sticky Memo: A social network site for developer</title>
   </head>
   <body class="landing-page">
+    <div id="loading">
+      <img
+        id="loading-image"
+        src="/assets/img/Preloader.gif"
+        alt="Loading..."
+      />
+    </div>
+
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
     <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"
     ></script>
     <script
@@ -85,6 +115,13 @@
 
     <!-- Theme JS -->
     <script src="/assets/js/blk-design-system.min.js"></script>
+    <script>
+      // Wait for window load
+      $(window).on("load", function() {
+        $("#loading").fadeOut("slow");
+      });
+      // Animate loader off screen
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
