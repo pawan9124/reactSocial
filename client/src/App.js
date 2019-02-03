@@ -1,30 +1,36 @@
-import React, { Component } from "react";
+import React, { Component, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import Landing from "./components/layout/Landing";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Dashboard from "./components/dashboard/Dashboard";
 import { Provider } from "react-redux";
-import PrivateRoute from "./components/common/PrivateRoute";
-import CreateProfile from "./components/create-profile/CreateProfile";
-import EditProfile from "./components/edit-profile/EditProfile";
-import AddExperience from "./components/add-credentials/AddExperience";
-import AddEducation from "./components/add-credentials/AddEducation";
-import Profiles from "./components/profiles/Profiles";
-import Profile from "./components/profile/Profile";
-import Posts from "./components/posts/Posts";
-import Post from "./components/post/Post";
-import Trip from "./components/trip/Trip";
-import NotFound from "./components/not-found/NotFound";
-
 import store from "./store";
 import "./App.css";
+
+const Navbar = lazy(() => import("./components/layout/Navbar"));
+const Footer = lazy(() => import("./components/layout/Footer"));
+const Landing = lazy(() => import("./components/layout/Landing"));
+const Login = lazy(() => import("./components/auth/Login"));
+const Register = lazy(() => import("./components/auth/Register"));
+const Dashboard = lazy(() => import("./components/dashboard/Dashboard"));
+const PrivateRoute = lazy(() => import("./components/common/PrivateRoute"));
+const CreateProfile = lazy(() =>
+  import("./components/create-profile/CreateProfile")
+);
+const EditProfile = lazy(() => import("./components/edit-profile/EditProfile"));
+const AddExperience = lazy(() =>
+  import("./components/add-credentials/AddExperience")
+);
+const AddEducation = lazy(() =>
+  import("./components/add-credentials/AddEducation")
+);
+const Profiles = lazy(() => import("./components/profiles/Profiles"));
+const Profile = lazy(() => import("./components/profile/Profile"));
+const Posts = lazy(() => import("./components/posts/Posts"));
+const Post = lazy(() => import("./components/post/Post"));
+const Trip = lazy(() => import("./components/trip/Trip"));
+const NotFound = lazy(() => import("./components/not-found/NotFound"));
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -52,65 +58,67 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            <Route exact path="/" component={Landing} />
-            <div>
-              <Navbar />
+          <Suspense fallback={<div>Loading...</div>}>
+            <div className="App">
+              <Route exact path="/" component={Landing} />
+              <div>
+                <Navbar />
 
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/profiles" component={Profiles} />
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/profile/:handle"
-                  component={Profile}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/create-profile"
-                  component={CreateProfile}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/edit-profile"
-                  component={EditProfile}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-experience"
-                  component={AddExperience}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-education"
-                  component={AddEducation}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/feed/:city" component={Posts} />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/post/:id" component={Post} />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/trip" component={Trip} />
-              </Switch>
-              <Route exact path="/not-found" component={NotFound} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/profiles" component={Profiles} />
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/profile/:handle"
+                    component={Profile}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/create-profile"
+                    component={CreateProfile}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/edit-profile"
+                    component={EditProfile}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/add-experience"
+                    component={AddExperience}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute
+                    exact
+                    path="/add-education"
+                    component={AddEducation}
+                  />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/feed/:city" component={Posts} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/post/:id" component={Post} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/trip" component={Trip} />
+                </Switch>
+                <Route exact path="/not-found" component={NotFound} />
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
+          </Suspense>
         </Router>
       </Provider>
     );
