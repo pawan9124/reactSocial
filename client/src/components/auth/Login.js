@@ -52,6 +52,7 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state;
+    // console.log("ERRORS", errors);
     return (
       <div id="loginPage" className="modal over" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
