@@ -42,6 +42,7 @@ class MapSearch extends Component {
         return <option key={"options" + index} value={data.label} />;
       });
     }
+    console.log("Logcato",locationSuggestion)
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit}>

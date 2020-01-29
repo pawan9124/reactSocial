@@ -1,15 +1,16 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "StickyPhoto",
+  "name": "StickyPhoto",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#bae6e2",
+  "theme_color": "#1f2251",
+  "oreintation": "portrait-primary",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/img/icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }

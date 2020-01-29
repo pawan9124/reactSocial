@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, unstable_Profiler as Profiler } from "react";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import ErrorBoundary from "../common/ErrorBoundary";
+import { unstable_trace as trace } from "scheduler/tracing";
+// import "../../../public/assets/img/Preloader.gif";
 // import "../../parallax.js";
 // import { ReactComponent as Path } from "../../img/3-path.svg";
 
@@ -12,6 +15,7 @@ class Landing extends Component {
     this.state = { showImage: false, showLogin: false };
     this.showLogin = this.showLogin.bind(this);
     this.showRegister = this.showRegister.bind(this);
+    this.onRenderCallback = this.onRenderCallback.bind(this);
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -27,16 +31,45 @@ class Landing extends Component {
     let modal = document.getElementById("registerPage");
     modal.style.display = "block";
   }
+  onRenderCallback({
+    id, // the "id" prop of the Profiler tree that has just committed
+    phase, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
+    actualDuration, // time spent rendering the committed update
+    baseDuration, // estimated time to render the entire subtree without memoization
+    startTime, // when React began rendering this update
+    commitTime, // when React committed this update
+    interactions // the Set of interactions belonging to this update
+  }) {
+    console.log(
+      "Id",
+      id,
+      "phase",
+      phase,
+      "startTime",
+      startTime,
+      "actualDuration",
+      actualDuration,
+      "baseDuration",
+      baseDuration
+    );
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.log("error==>", error, errorInfo, errorInfo.componentStack);
+    throw new Error(error);
+  }
 
   render() {
+    console.log(require("../../img/homepage/arrow-down.svg"));
     return (
+      //
       <div>
         <header className="bg-image">
           <img
             className="logo-img over"
             alt="cloud1"
             src={
-              require("../../img/sticky_logo_crop.png") // data-offset="0.7"
+              require("../../img/sticky_logo_crop.png").default // data-offset="0.7"
             }
           />
 
@@ -66,52 +99,52 @@ class Landing extends Component {
             <img
               alt="compass"
               className="compass"
-              src={require("../../img/homepage/compass.png")}
+              src={require("../../img/homepage/compass.png").default}
             />
             <img
               alt="arrow-left"
               className="arrow-left-compass"
-              src={require("../../img/homepage/arrow-right.svg")}
+              src={require("../../img/homepage/arrow-right.svg").default}
             />
             <img
               alt="stamp"
               className="stamp"
-              src={require("../../img/homepage/stamp.png")}
+              src={require("../../img/homepage/stamp.png").default}
             />
             <img
               alt="arrow-left-up"
               className="arrow-left-up"
-              src={require("../../img/homepage/arrow-up-left.svg")}
+              src={require("../../img/homepage/arrow-up-left.svg").default}
             />
             <img
               alt="pics"
               className="pics"
-              src={require("../../img/homepage/pics.png")}
+              src={require("../../img/homepage/pics.png").default}
             />
             <img
               alt="arrow-rotate"
               className="arrow-down-rotate"
-              src={require("../../img/homepage/arrow-down.svg")}
+              src={require("../../img/homepage/arrow-down.svg").default}
             />
             <img
               alt="title"
               className="title-product"
-              src={require("../../img/homepage/title.png")}
+              src={require("../../img/homepage/title.png").default}
             />
             <img
               alt="map"
               className="map"
-              src={require("../../img/homepage/map.png")}
+              src={require("../../img/homepage/map.png").default}
             />
             <img
               alt="arrow-right-down"
               className="arrow-right-down"
-              src={require("../../img/homepage/arrow-right.svg")}
+              src={require("../../img/homepage/arrow-right.svg").default}
             />
             <img
               alt="shell"
               className="shell"
-              src={require("../../img/homepage/shell.png")}
+              src={require("../../img/homepage/shell.png").default}
             />
           </div>
 
@@ -122,7 +155,9 @@ class Landing extends Component {
             // data-offset="0.7"
             src={require("../../img/world-tour-grey.svg")}
           /> */}
+          {/* <Profiler id="LandingPage" onRender={this.onRenderCallback}> */}
           <Login />
+          {/* </Profiler> */}
           <br />
           <Register />
 
@@ -226,6 +261,8 @@ class Landing extends Component {
           </div>
         </section>
       </div>
+      //{" "}
+      // </Profiler>
     );
   }
 }

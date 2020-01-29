@@ -14,6 +14,7 @@ export const addLocation = postData => dispatch => {
   dispatch(clearErrors());
   Axios.post("/api/dashboard/createLocation", postData)
     .then(res => {
+      console.log("RESPOSNE BACK+++++++>>>>>", res);
       document.getElementById("closeModalLocation").click();
       dispatch({ type: ADD_LOCATION, payload: res.data });
     })

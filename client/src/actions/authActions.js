@@ -22,8 +22,10 @@ export const registerUser = (userData, history) => dispatch => {
 
 //Login - Get User Token
 export const loginUser = userData => dispatch => {
+  console.log("USERDATA=====", userData);
   Axios.post("/api/userAuth/login", userData)
     .then(res => {
+      console.log("RESPONSE", res);
       //Save to localStorage
       const { token } = res.data;
       //Set token to ls

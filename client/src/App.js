@@ -8,29 +8,26 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
 
-const Navbar = lazy(() => import("./components/layout/Navbar"));
-const Footer = lazy(() => import("./components/layout/Footer"));
-const Landing = lazy(() => import("./components/layout/Landing"));
-const Login = lazy(() => import("./components/auth/Login"));
-const Register = lazy(() => import("./components/auth/Register"));
-const Dashboard = lazy(() => import("./components/dashboard/Dashboard"));
-const PrivateRoute = lazy(() => import("./components/common/PrivateRoute"));
-const CreateProfile = lazy(() =>
-  import("./components/create-profile/CreateProfile")
-);
-const EditProfile = lazy(() => import("./components/edit-profile/EditProfile"));
-const AddExperience = lazy(() =>
-  import("./components/add-credentials/AddExperience")
-);
-const AddEducation = lazy(() =>
-  import("./components/add-credentials/AddEducation")
-);
-const Profiles = lazy(() => import("./components/profiles/Profiles"));
-const Profile = lazy(() => import("./components/profile/Profile"));
-const Posts = lazy(() => import("./components/posts/Posts"));
-const Post = lazy(() => import("./components/post/Post"));
-const Trip = lazy(() => import("./components/trip/Trip"));
-const NotFound = lazy(() => import("./components/not-found/NotFound"));
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Landing from "./components/layout/Landing";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/common/PrivateRoute";
+
+import CreateProfile from "./components/create-profile/CreateProfile";
+import EditProfile from "./components/edit-profile/EditProfile";
+
+import AddExperience from "./components/add-credentials/AddExperience";
+
+import AddEducation from "./components/add-credentials/AddEducation";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
+import Trip from "./components/trip/Trip";
+import NotFound from "./components/not-found/NotFound";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -55,6 +52,8 @@ if (localStorage.jwtToken) {
 
 class App extends Component {
   render() {
+    console.log("PIGIS");
+    // console.log("Landing", Landing, typeof Landing,Landing instanceof Function);
     return (
       <Provider store={store}>
         <Router>

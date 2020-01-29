@@ -77,7 +77,6 @@ CardDisplay.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(
-  null,
-  { setSingleLocation }
-)(withStyles(styles)(CardDisplay));
+export default connect(null, { setSingleLocation })(
+  withStyles(styles)(CardDisplay)
+);

@@ -8,11 +8,19 @@ import Spinner from "../common/Spinner";
 import CreateLocation from "./CreateLocation";
 import CardDisplay from "../common/CardDisplay";
 import MapDisplay from "../map/MapDisplay";
+import { createDatabase, createTableAndRow } from "../../cache";
 
 class Dashboard extends Component {
   componentDidMount() {
+    console.time("fetching Profile");
     this.props.getCurrentProfile();
     this.props.getTopLocations();
+    createDatabase("dashboard", "props", "id").then(result => {
+      createTableAndRow(result, "props", this.props.auth);
+      createTableAndRow(result, "props", this.props.dashboard);
+      createTableAndRow(result, "props", this.props.profile);
+    });
+    console.timeEnd("fetching Profile");
   }
 
   onDeleteClick(e) {
@@ -20,6 +28,8 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.time("renderingDashboard");
+    console.log("Props", this.props);
     const { user } = this.props.auth;
     const { locations, loading } = this.props.dashboard;
     const { profile } = this.props.profile;
@@ -59,29 +69,29 @@ class Dashboard extends Component {
         <div className=" page-header" style={{ marginTop: "5%" }}>
           <img
             alt="image1"
-            src={require("../../img/blob.png")}
+            src={require("../../img/blob.png").default}
             className="path"
           />
           <img
             alt="image2"
-            src={require("../../img/path2.png")}
+            src={require("../../img/path2.png").default}
             className="path2"
           />
           <img
             alt="image3"
-            src={require("../../img/triunghiuri.png")}
+            src={require("../../img/triunghiuri.png").default}
             className="shapes triangle"
             style={{ top: "76%" }}
           />
           <img
             alt="image4"
-            src={require("../../img/waves.png")}
+            src={require("../../img/waves.png").default}
             className="shapes wave"
             style={{ top: "0%", left: "0%" }}
           />
           <img
             alt="image6"
-            src={require("../../img/cercuri.png")}
+            src={require("../../img/cercuri.png").default}
             className="shapes circle"
             style={{ top: "0%", left: "25%" }}
           />
@@ -109,13 +119,13 @@ class Dashboard extends Component {
               <div>
                 <img
                   alt="image1"
-                  src={require("../../img/path4.png")}
+                  src={require("../../img/path4.png").default}
                   className="path"
                   style={{ left: "0px" }}
                 />
                 <img
                   alt="image2"
-                  src={require("../../img/path4.png")}
+                  src={require("../../img/path4.png").default}
                   className="path"
                   style={{ top: "260px" }}
                 />
@@ -128,6 +138,7 @@ class Dashboard extends Component {
             ) : null}
           </div>
         )}
+        {console.timeEnd("renderingDashboard")}
       </div>
     );
   }
@@ -146,7 +157,8 @@ const mapStateToProps = state => ({
   dashboard: state.dashboard
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile, deleteAccount, getTopLocations }
-)(Dashboard);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  deleteAccount,
+  getTopLocations
+})(Dashboard);
