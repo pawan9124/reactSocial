@@ -10,6 +10,7 @@ const checkStatus = function() {
 };
 
 const sendPostRequest = reqData => {
+  console.log("REQUESTDAT", reqData);
   return new Promise((resolve, reject) => {
     Axios.post("/api" + reqData.url.split("/api")[1], reqData.data)
       .then(result => {
@@ -45,8 +46,16 @@ window.addEventListener("online", function() {
         .table("postrequest")
         .toArray()
         .then(dbData => {
+          console.log("DBDatat---->", dbData);
           if (dbData.length > 0) {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < dbData.length; i++) {
+              if (dbData[i].data.formType === "form-data") {
+                let newForm = new FormData();
+                for (let dt in dbData[i].data) {
+                  newForm.append(dt, dbData[i].data[dt]);
+                }
+                dbData[i].data = newForm;
+              }
               sendPostRequest(dbData[i])
                 .then(console.log("Uploaded Successfully"))
                 .catch(err => {
@@ -54,7 +63,6 @@ window.addEventListener("online", function() {
                 });
             }
           }
-          console.log("Dataa------>", dbData);
         });
     })
     .catch(error => {

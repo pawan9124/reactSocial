@@ -97,6 +97,27 @@ self.addEventListener("activate", evt => {
 });
 
 /*
+ * Function to save the data to the indexedDB
+ */
+function saveDataToIndexedDB(evt, postData) {
+  console.log("POSTDATA", postData);
+  //Saving the request to the database
+  db.postrequest
+    .add({
+      url: evt.request.url,
+      data: postData
+    })
+    .then(datares => {
+      // console.log("datares===>", postData);
+      return postData;
+    })
+    .catch(err => {
+      console.log("Post Request saving database failed");
+      throw new Error(err);
+    });
+}
+
+/*
  * Fetching the events for the service workers
  * This is used to get the response for cache or the apis
  * check if the resource are in cache if not the request based on the caching of the route
@@ -168,6 +189,8 @@ self.addEventListener("fetch", evt => {
         //Using clone in the event request is used as without clone the body stream lock error will
         // thrown and can't copy request more than once
 
+        //Checking the post data
+        console.log("POST------------>Data", evt.request.url);
         //Check if it is not login functionality
         if (evt.request.url.indexOf("/login") === -1) {
           evt.request
@@ -176,26 +199,24 @@ self.addEventListener("fetch", evt => {
             .then(function(body) {
               //To check if the form is form-data or just form
               if (body.indexOf("form-data") > -1) {
-                postData = evt.request.clone().formData();
+                evt.request
+                  .clone()
+                  .formData()
+                  .then(formData => {
+                    // var form_data = new FormData();
+                    let form_data = { formType: "form-data" };
+                    for (var pair of formData.entries()) {
+                      console.log("KEY", pair[0], "Value", pair[1]);
+                      form_data[pair[0]] = pair[1];
+                    }
+                    postData = form_data;
+                    saveDataToIndexedDB(evt, postData);
+                    console.log("POSTDATA", postData);
+                  });
               } else {
                 postData = JSON.parse(body);
+                saveDataToIndexedDB(evt, postData);
               }
-
-              // console.log("POSTDATA", postData);
-              //Saving the request to the database
-              db.postrequest
-                .add({
-                  url: evt.request.url,
-                  data: postData
-                })
-                .then(datares => {
-                  // console.log("datares===>", postData);
-                  return postData;
-                })
-                .catch(err => {
-                  console.log("Post Request saving database failed");
-                  throw new Error(err);
-                });
             });
         }
       });
